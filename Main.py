@@ -49,8 +49,8 @@ class User:
     # TODO: define types
     fake_bias = 0.0
     creator_bias = 0.0
+
     # check_bias = 0.0
-    in_post = []
 
     def __init__(self, fake_bias, creator_bias, check_bias):
         self.fake_bias = fake_bias
@@ -168,9 +168,10 @@ class Network:
 
 # run network for n rounds
 if __name__ == '__main__':
-    #vars
+    # vars
     start_time = time.process_time()
-    rounds = 100
+    rounds = 5  # in thousands
+    round_times = []
 
     # build
     my_reddit = Network()
@@ -182,13 +183,18 @@ if __name__ == '__main__':
           f"for {rounds} rounds \n"
           f"---------------------------------------- \n")
 
-    print(f"Data structures built in {time.process_time()-start_time} seconds")
+    print(f"Data structures built in {time.process_time() - start_time} seconds")
 
     # simulate
     for i in range(rounds):
-        my_reddit.simulate_round()
+        round_timer = time.process_time()
+        for _ in range(1000):
+            my_reddit.simulate_round()
+        round_times.append(1000 / (time.process_time() - round_timer))
+        print(f"{i+1}000 of {rounds}000 rounds simulated in"
+              f" {time.process_time() - round_timer} seconds")
 
-    print(f"Simulation finished after {time.process_time()-start_time} seconds")
+    print(f"Simulation finished after {time.process_time() - start_time} seconds")
 
     # plot stuff
     plt.plot(range(len(my_reddit.fake_biases)), my_reddit.fake_biases)
@@ -200,8 +206,9 @@ if __name__ == '__main__':
     plt.show()
 
     plt.plot(range(1, len(my_reddit.post_biases)), my_reddit.post_biases[1:], 'r-')
-    plt.title("Post Bias")
+    plt.title("Average Post Bias")
     plt.show()
 
-
-
+    plt.plot(range(0, len(round_times)), round_times, 'g-')
+    plt.title("Performance Evaluation")
+    plt.show()
