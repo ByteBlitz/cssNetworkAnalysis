@@ -1,10 +1,24 @@
 # Copyright Max Osterried, 2022
+# on Github: https://github.com/ByteBlitz/cssNetworkAnalysis
 # using the style guide at https://peps.python.org/pep-0008/
+
+# useful pages:
+# https://www.python-graph-gallery.com
+# https://matplotlib.org/stable/tutorials/introductory/pyplot.html
 #
 #
 # FIXME [assuming]:
 # Used for declaring implicit simplifications and assumptions, that might impact precision.
 #
+
+# TODO:
+# everyone should be connected to so
+# add touch grass bias
+# replace or reset users
+# views for posts (debugging reasons)
+# success rating for posts (top 50 in pulling people into their direction)
+
+
 import random
 import time
 
@@ -29,14 +43,17 @@ def random_connection(val, high):
 class Post:
     # FIXME [assuming]:
     # all posts are of similar quality and similarly convincing
-    fake_bias: float = 0.0
-    upvotes: int = 1
+    fake_bias: float
+    upvotes: int
+    views: int
 
     # age: int = 0
     # lifetime: int = 3
 
     def __init__(self, bias):
         self.fake_bias = as_probability(np.random.normal(bias, 0.1))
+        self.upvotes = 1
+        self.views = 1
         # TODO: come up with a better standard deviation
 
 
@@ -49,6 +66,10 @@ class User:
     # TODO: define types
     fake_bias = 0.0
     creator_bias = 0.0
+
+    # statistics
+    viewed_posts = 0
+    created_posts = 0
 
     # check_bias = 0.0
 
@@ -73,18 +94,21 @@ class User:
         return abs(self.fake_bias - post.fake_bias) > (1 - threshold)
 
     def vote(self, post):
+        # TODO: include ignore
         if self.agree(post, 0.2):
             post.upvotes += 1
         elif self.disagree(post, 0.2):
             post.upvotes -= 1
 
     def new_bias(self, post):
+        # TODO: include ignore
         if self.agree(post, 0.1):
             self.fake_bias = max(min((self.fake_bias * 5 + post.fake_bias) / 6, 1), 0)
         else:
             self.fake_bias = max(min((self.fake_bias * 7 - post.fake_bias) / 6, 1), 0)
 
     def create_post(self):
+        self.created_posts += 1
         # make post
         post = Post(self.fake_bias)
         # transmit post
@@ -96,6 +120,8 @@ class User:
             post = self.in_post.pop()
             if post is None:
                 continue
+            self.viewed_posts += 1
+            post.views += 1
             # interact
             self.vote(post)
             # reweigh bias
@@ -103,15 +129,15 @@ class User:
 
 
 # build network
-# FIXME: using reduced complexity with 10 nodes, no subreddits but random connections
+# FIXME: using reduced complexity with n nodes, no subreddits but random connections
 class Network:
     # change for network size and connectivity
-    user_number = 1000
-    connection_number = 2000
+    user_number = 10000
+    connection_number = 20000
 
     # change properties of the Users
-    aa_fake_bias = 0.1
-    creator_bias = 0.05
+    aa_fake_bias = 0.2
+    creator_bias = 0.03
     check_bias = 0.1
 
     aa_post_bias = 0
@@ -122,6 +148,8 @@ class Network:
 
     fake_biases = []
     post_biases = []
+
+    post_fake_bias_sum = 0
 
     def __init__(self):
         # build nodes (Users)
@@ -139,20 +167,17 @@ class Network:
             self.connections[val].append(random_connection(val, self.user_number))
 
     def simulate_round(self):
-        post_fake_bias_sum = 0.0
-        for post in self.posts:
-            # TODO: kill if too old
-            post_fake_bias_sum += post.fake_bias
-        self.aa_post_bias = post_fake_bias_sum / max(len(self.posts), 1)
-
+        # simulate users
         user_fake_bias_sum = 0.0
         for i, user in enumerate(self.users):
             # TODO: return from own posts
             user_fake_bias_sum += user.fake_bias
+            # TODO: case 0: touch grass
             # case 1: create post
             if random.random() < self.creator_bias:
                 post = user.create_post()
                 self.posts.append(post)
+                self.post_fake_bias_sum += post.fake_bias
                 for u in self.connections[i]:
                     self.users[u].in_post.append(post)
 
@@ -161,16 +186,21 @@ class Network:
                 user.consume_post()
         self.aa_fake_bias = user_fake_bias_sum / self.user_number
 
+        # Do not ever iterate all posts! Horrible complexity!
+        # The average is calculated when creating the post
+        # TODO: kill post if too old (somewhere else, maybe in the consume queue)
+        self.aa_post_bias = self.post_fake_bias_sum / max(len(self.posts), 1)
+
         self.fake_biases.append(self.aa_fake_bias)
         self.post_biases.append(self.aa_post_bias)
-        # return self.fake_bias
 
 
 # run network for n rounds
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 5  # in thousands
+    rounds = 20  # in per_round
+    per_round = 50
     round_times = []
 
     # build
@@ -180,19 +210,29 @@ if __name__ == '__main__':
           f"- {my_reddit.user_number} Users, \n"
           f"- {my_reddit.connection_number} Connections and \n"
           f"- a starting bias of {my_reddit.aa_fake_bias} \n"
-          f"for {rounds} rounds \n"
+          f"for {rounds}x{per_round} time steps \n"
           f"---------------------------------------- \n")
 
     print(f"Data structures built in {time.process_time() - start_time} seconds")
 
+    # plots in the beginning
+    plt.hist([u.fake_bias for u in my_reddit.users])
+    plt.title("User Bias Histogram [start]")
+    plt.show()
+
     # simulate
     for i in range(rounds):
         round_timer = time.process_time()
-        for _ in range(1000):
+        for _ in range(per_round):
             my_reddit.simulate_round()
-        round_times.append(1000 / (time.process_time() - round_timer))
-        print(f"{i+1}000 of {rounds}000 rounds simulated in"
+        round_times.append(per_round / (time.process_time() - round_timer))
+        print(f"{i+1} of {rounds} rounds simulated in"
               f" {time.process_time() - round_timer} seconds")
+
+        # plots after every round go here
+        plt.hist([u.fake_bias for u in my_reddit.users])
+        plt.title(f"User Bias Histogram [{i+1}]")
+        plt.show()
 
     print(f"Simulation finished after {time.process_time() - start_time} seconds")
 
