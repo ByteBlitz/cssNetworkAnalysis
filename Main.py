@@ -73,11 +73,13 @@ class User:
 
     # check_bias = 0.0
 
+
     def __init__(self, fake_bias, creator_bias, check_bias):
         self.fake_bias = fake_bias
         self.creator_bias = creator_bias
         self.in_post = []
         # self.check_bias = check_bias
+
 
     def __init__(self, fake_bias, fake_dev, creator_bias, creator_dev, check_bias, check_dev):
         self.fake_bias = as_probability(np.random.normal(fake_bias, fake_dev))
@@ -103,9 +105,12 @@ class User:
     def new_bias(self, post):
         # TODO: include ignore
         if self.agree(post, 0.1):
+            # post can inc one's fake bias maximum 20%
             self.fake_bias = max(min((self.fake_bias * 5 + post.fake_bias) / 6, 1), 0)
         else:
+            # post can dec one's fake bias by maximum 16%
             self.fake_bias = max(min((self.fake_bias * 7 - post.fake_bias) / 6, 1), 0)
+
 
     def create_post(self):
         self.created_posts += 1
@@ -115,7 +120,7 @@ class User:
         return post
 
     def consume_post(self):
-        # take (random) post
+        # take (random) post out of the agent's buffer
         while len(self.in_post) != 0:
             post = self.in_post.pop()
             if post is None:
@@ -132,8 +137,8 @@ class User:
 # FIXME: using reduced complexity with n nodes, no subreddits but random connections
 class Network:
     # change for network size and connectivity
-    user_number = 10000
-    connection_number = 20000
+    user_number = 5
+    connection_number = 200
 
     # change properties of the Users
     aa_fake_bias = 0.2
@@ -151,6 +156,9 @@ class Network:
 
     post_fake_bias_sum = 0
 
+    # helper structures
+    duplicate_map = {}
+
     def __init__(self):
         # build nodes (Users)
         for _ in range(self.user_number):
@@ -162,9 +170,23 @@ class Network:
         for i in range(self.user_number):
             self.connections[i] = []
 
+        # initializing duplicate map
+        for i in range(self.user_number):
+            self.duplicate_map[i] = []
+
+        # generating random connections
         for _ in range(self.connection_number):
-            val = np.random.randint(0, self.user_number)
-            self.connections[val].append(random_connection(val, self.user_number))
+            # draw random user
+            u = np.random.randint(0, self.user_number)
+            # and connect to other random user
+            v = random_connection(u, self.user_number)
+            if (v not in self.duplicate_map[u]):
+                #self.connections[u].append(v)
+                self.duplicate_map[u].append(v)
+
+        
+        self.connections = self.duplicate_map
+
 
     def simulate_round(self):
         # simulate users
