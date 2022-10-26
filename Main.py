@@ -64,7 +64,10 @@ class User:
     # repetition effect not taken into account, introduce vulnerability variable
 
     # TODO: define types
+
+    # the range of fakeness an agent likes to enjoy his news
     fake_bias = 0.0
+    # how likely an agent is to create a post in a given round
     creator_bias = 0.0
 
     # statistics
@@ -87,15 +90,19 @@ class User:
         self.in_post = []
         # self.check_bias = as_probability(np.random.normal(check_bias, check_dev))
 
+    # function that evaluates if a user agrees to a post
     def agree(self, post, threshold):
+
         # TODO: get me a proper function of agreement
         return abs(self.fake_bias - post.fake_bias) < threshold
 
     def disagree(self, post, threshold):
+
         # TODO: get me a proper function of disagreement
         return abs(self.fake_bias - post.fake_bias) > (1 - threshold)
 
     def vote(self, post):
+
         # TODO: include ignore
         if self.agree(post, 0.2):
             post.upvotes += 1
@@ -103,6 +110,7 @@ class User:
             post.upvotes -= 1
 
     def new_bias(self, post):
+
         # TODO: include ignore
         if self.agree(post, 0.1):
             # post can inc one's fake bias maximum 20%
@@ -113,22 +121,30 @@ class User:
 
 
     def create_post(self):
+
         self.created_posts += 1
+
         # make post
         post = Post(self.fake_bias)
+
         # transmit post
         return post
 
     def consume_post(self):
+
         # take (random) post out of the agent's buffer
         while len(self.in_post) != 0:
             post = self.in_post.pop()
+
             if post is None:
                 continue
+
             self.viewed_posts += 1
             post.views += 1
+
             # interact
             self.vote(post)
+
             # reweigh bias
             self.new_bias(post)
 
@@ -159,6 +175,9 @@ class Network:
     # helper structures
     duplicate_map = {}
 
+    # counts
+    connection_count = 0
+
     def __init__(self):
         # build nodes (Users)
         for _ in range(self.user_number):
@@ -175,14 +194,17 @@ class Network:
             self.duplicate_map[i] = []
 
         # generating random connections
-        for _ in range(self.connection_number):
+        while connection_count < self.connection_number:
             # draw random user
             u = np.random.randint(0, self.user_number)
+
             # and connect to other random user
             v = random_connection(u, self.user_number)
+
+            # check if we didn't already generate this connection
             if (v not in self.duplicate_map[u]):
-                #self.connections[u].append(v)
                 self.duplicate_map[u].append(v)
+                connection_count++;
 
         
         self.connections = self.duplicate_map
@@ -197,9 +219,12 @@ class Network:
             # TODO: case 0: touch grass
             # case 1: create post
             if random.random() < self.creator_bias:
+
+                # user creates a post
                 post = user.create_post()
                 self.posts.append(post)
                 self.post_fake_bias_sum += post.fake_bias
+                # and it lands in every buffer of his connections
                 for u in self.connections[i]:
                     self.users[u].in_post.append(post)
 
