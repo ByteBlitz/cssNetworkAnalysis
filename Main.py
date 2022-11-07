@@ -14,6 +14,8 @@
 # TODO:
 # everyone should be connected to so
 # add touch grass bias
+# add ignoring as a valid option
+# sort posts by relevance (binary heap)
 # replace or reset users
 # views for posts (debugging reasons)
 # success rating for posts (top 50 in pulling people into their direction)
@@ -76,13 +78,11 @@ class User:
 
     # check_bias = 0.0
 
-
     def __init__(self, fake_bias, creator_bias, check_bias):
         self.fake_bias = fake_bias
         self.creator_bias = creator_bias
         self.in_post = []
         # self.check_bias = check_bias
-
 
     def __init__(self, fake_bias, fake_dev, creator_bias, creator_dev, check_bias, check_dev):
         self.fake_bias = as_probability(np.random.normal(fake_bias, fake_dev))
@@ -118,7 +118,6 @@ class User:
         else:
             # post can dec one's fake bias by maximum 16%
             self.fake_bias = max(min((self.fake_bias * 7 - post.fake_bias) / 6, 1), 0)
-
 
     def create_post(self):
 
@@ -157,6 +156,8 @@ class Network:
     connection_number = 200
 
     # change properties of the Users
+    # TODO: connect the touch grass factor with user behavior
+    touch_grass_bias = 0.3
     aa_fake_bias = 0.2
     creator_bias = 0.03
     check_bias = 0.1
@@ -194,6 +195,7 @@ class Network:
             self.duplicate_map[i] = []
 
         # generating random connections
+        connection_count = 0
         while connection_count < self.connection_number:
             # draw random user
             u = np.random.randint(0, self.user_number)
@@ -202,13 +204,11 @@ class Network:
             v = random_connection(u, self.user_number)
 
             # check if we didn't already generate this connection
-            if (v not in self.duplicate_map[u]):
+            if v not in self.duplicate_map[u]:
                 self.duplicate_map[u].append(v)
-                connection_count++;
+                connection_count += 1
 
-        
         self.connections = self.duplicate_map
-
 
     def simulate_round(self):
         # simulate users
@@ -273,12 +273,12 @@ if __name__ == '__main__':
         for _ in range(per_round):
             my_reddit.simulate_round()
         round_times.append(per_round / (time.process_time() - round_timer))
-        print(f"{i+1} of {rounds} rounds simulated in"
+        print(f"{i + 1} of {rounds} rounds simulated in"
               f" {time.process_time() - round_timer} seconds")
 
         # plots after every round go here
         plt.hist([u.fake_bias for u in my_reddit.users])
-        plt.title(f"User Bias Histogram [{i+1}]")
+        plt.title(f"User Bias Histogram [{i + 1}]")
         plt.show()
 
     print(f"Simulation finished after {time.process_time() - start_time} seconds")
