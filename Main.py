@@ -152,8 +152,8 @@ class User:
 # FIXME: using reduced complexity with n nodes, no subreddits but random connections
 class Network:
     # change for network size and connectivity
-    user_number = 5
-    connection_number = 200
+    user_number = 500
+    connection_number = 24000
 
     # change properties of the Users
     # TODO: connect the touch grass factor with user behavior
@@ -247,7 +247,7 @@ if __name__ == '__main__':
     # vars
     start_time = time.process_time()
     rounds = 20  # in per_round
-    per_round = 50
+    per_round = 500
     round_times = []
 
     # build
