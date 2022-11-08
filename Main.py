@@ -1,7 +1,7 @@
 # Copyright Max Osterried, 2022
 # on Github: https://github.com/ByteBlitz/cssNetworkAnalysis
 # using the style guide at https://peps.python.org/pep-0008/
-
+import math
 # useful pages:
 # https://www.python-graph-gallery.com
 # https://matplotlib.org/stable/tutorials/introductory/pyplot.html
@@ -21,17 +21,23 @@
 # success rating for posts (top 50 in pulling people into their direction)
 
 
+# imports
 import random
 import time
-
-# imports
 import numpy as np
 import matplotlib.pyplot as plt
+
+# global vars
+timestamp: int = 0
 
 
 # functions
 def as_probability(val):
     return min(max(val, 0), 1)
+
+
+def get_hot(post):
+    return post.hot()
 
 
 def random_connection(val, high):
@@ -41,22 +47,54 @@ def random_connection(val, high):
             return rand
 
 
-# define objects
+# objects
 class Post:
     # FIXME [assuming]:
     # all posts are of similar quality and similarly convincing
-    fake_bias: float
-    upvotes: int
-    views: int
-
-    # age: int = 0
-    # lifetime: int = 3
 
     def __init__(self, bias):
+        #
         self.fake_bias = as_probability(np.random.normal(bias, 0.1))
-        self.upvotes = 1
-        self.views = 1
         # TODO: come up with a better standard deviation
+        self.creation = timestamp
+        self.ups = 1
+        self.downs = 0
+
+        # statistics
+        self.views = 1
+        self.success = 0.0
+
+    def score(self):
+        return self.ups - self.downs
+
+    def hot(self):
+        """The hot formula. Should match the equivalent function in postgres."""
+        s = self.score()
+        order = math.log(max(abs(s), 1), 10)
+        sign = 1 if s > 0 else 0 if s == 0 else -1
+        hours = timestamp - self.creation
+        return round(sign * order + hours / 12, 7)
+
+
+class Subreddit:
+    def __init__(self, bias, bias_dev, tolerance, tolerance_dev):
+        # post queues
+        self.posts = 0
+        self.hot = []
+        self.new = []
+
+        # stats
+        self.bias = as_probability(np.random.normal(bias, bias_dev))
+        self.tolerance = as_probability(np.random.normal(tolerance, tolerance_dev))
+
+        # statistics
+
+    def enqueue(self, post: Post):
+        self.posts += 1
+        self.new.append(post)
+        self.hot.append(post)
+        self.hot.sort(key=get_hot)
+        # amortize sorting by either using a binary heap or splitting time steps into insertion, then sort
 
 
 class User:
@@ -68,9 +106,11 @@ class User:
     # TODO: define types
 
     # the range of fakeness an agent likes to enjoy his news
-    fake_bias = 0.0
+    fake_bias: float
+    # probability not to be online
+    touch_grass_bias: float
     # how likely an agent is to create a post in a given round
-    creator_bias = 0.0
+    creator_bias: float
 
     # statistics
     viewed_posts = 0
