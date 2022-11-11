@@ -57,9 +57,6 @@
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -128,7 +125,7 @@
       <workItem from="1667825521472" duration="869000" />
       <workItem from="1667826406636" duration="1072000" />
       <workItem from="1667827657804" duration="9393000" />
-      <workItem from="1667940019715" duration="2903000" />
+      <workItem from="1667940019715" duration="13690000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -172,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667903518645</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added Subredits, simplified code.">
+      <created>1667945639699</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1667945639699</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,9 +200,21 @@
     <MESSAGE value="Performance increased to pseudolinear scaling. Added function &amp; field stumps for better statistics. Testrun with 4.3 mio nodes, took 10 minutes" />
     <MESSAGE value="Bug fixes, added fields for future amendments" />
     <MESSAGE value="Added the official Reddit ranking code and rewrote it to native python" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the official Reddit ranking code and rewrote it to native python" />
+    <MESSAGE value="Added Subredits, simplified code." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Subredits, simplified code." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>210</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1666254189300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1668123771021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
