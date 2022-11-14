@@ -36,13 +36,16 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2GGYFhR67xYpYMiTXsdKfXFxTX5" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -52,6 +55,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/plots" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Reddit" />
@@ -125,7 +133,9 @@
       <workItem from="1667825521472" duration="869000" />
       <workItem from="1667826406636" duration="1072000" />
       <workItem from="1667827657804" duration="9393000" />
-      <workItem from="1667940019715" duration="13690000" />
+      <workItem from="1667940019715" duration="29010000" />
+      <workItem from="1668179442627" duration="6906000" />
+      <workItem from="1668426014454" duration="14537000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -176,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667945639699</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Finished the rework. I screwed up the runtime constants though">
+      <created>1668125080091</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668125080091</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,26 +212,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Added Performance Evaluation" />
     <MESSAGE value="Performance increased to pseudolinear scaling. Added function &amp; field stumps for better statistics. Testrun with 4.3 mio nodes, took 10 minutes" />
     <MESSAGE value="Bug fixes, added fields for future amendments" />
     <MESSAGE value="Added the official Reddit ranking code and rewrote it to native python" />
     <MESSAGE value="Added Subredits, simplified code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Subredits, simplified code." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Main.py</url>
-          <line>210</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Finished the rework. I screwed up the runtime constants though" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished the rework. I screwed up the runtime constants though" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1668123771021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1668433964584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
