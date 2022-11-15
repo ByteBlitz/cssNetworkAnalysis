@@ -1,8 +1,22 @@
-import time
-import copy
-import Reddit
-import Plot
+# This file is a template about how to extend the main reddit network to implement your moderation additions
 
+import Reddit
+import time
+import Plot
+import copy
+
+# extend or override original data structures here
+class Network(Reddit.Network):
+    def __init__(self):
+        Reddit.Network.__init__(self)
+        self.new_exciting_property = 0.0
+
+    def simulate_round(self):
+        Reddit.Network.simulate_round(self)
+        self.new_exciting_property += 1
+
+
+# run your implementation here
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
@@ -11,7 +25,7 @@ if __name__ == '__main__':
     round_times = []
 
     # build
-    my_reddit = Reddit.Network()
+    my_reddit = Network()
     print(f"----------------------------------------\n"
           f"Simulating a Reddit-like Network with \n"
           f"- {my_reddit.cnt_users} Users, \n"
