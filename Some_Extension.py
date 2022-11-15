@@ -4,12 +4,31 @@ import Reddit
 import time
 import Plot
 import copy
+import numpy as np
+import Names
+
 
 # extend or override original data structures here
+def make_name():
+    return "".join([np.random.choice(Names.names), " ", np.random.choice(Names.surnames)])
+
+
+class User(Reddit.User):
+    def __init__(self, creator_bias, fake_bias, ls_subreddits, touch_grass_bias, usr_id, usr_subreddit_cap):
+        Reddit.User.__init__(self, creator_bias, fake_bias, ls_subreddits, touch_grass_bias, usr_id, usr_subreddit_cap)
+        self.name = make_name()
+
+
 class Network(Reddit.Network):
     def __init__(self):
         Reddit.Network.__init__(self)
+        # add property
         self.new_exciting_property = 0.0
+        # override property
+        self.ls_users = self.ls_users = np.array(
+            [User(usr_id, self.usr_bias, self.usr_creator_bias, self.usr_touch_grass_bias,
+                  self.ls_subreddits, self.usr_subreddit_cap)
+             for usr_id in range(self.cnt_users)])
 
     def simulate_round(self):
         Reddit.Network.simulate_round(self)
@@ -65,31 +84,16 @@ if __name__ == '__main__':
     ms_posts = Reddit.most_successful(my_reddit.ls_posts, 10, lambda post: post.success, worst_post)
 
     # find most successful users
-    ms_users: [Reddit.User] = [my_reddit.ls_users[0]]
-    for user in my_reddit.ls_users:
-        # filter for the 10 most successful users
-        if user.success > ms_users[0].success:
-            i = 0
-            while i < len(ms_users):
-                if user.success < ms_users[i].success:
-                    break
-                i += 1
-            ms_users.insert(i, user)
-            ms_users = ms_users[max(0, len(ms_users) - 10):len(ms_users)]
+    worst_user = copy.deepcopy(my_reddit.ls_users[0])
+    worst_user.success = -1000
+    ms_users = Reddit.most_successful(my_reddit.ls_users, 10, lambda user: user.success, worst_user)
 
     # find most successful extremist users
-    ms_extremist_users: [Reddit.User] = [copy.deepcopy(my_reddit.ls_users[0])]
-    ms_extremist_users[0].success = -1000
-    for user in my_reddit.ls_users:
-        # filter for the 10 most successful users
-        if user.success > ms_extremist_users[0].success and (user.fake_bias > 0.8 or user.fake_bias < 0.2):
-            i = 0
-            while i < len(ms_extremist_users):
-                if user.success < ms_extremist_users[i].success:
-                    break
-                i += 1
-            ms_extremist_users.insert(i, user)
-            ms_extremist_users = ms_extremist_users[max(0, len(ms_extremist_users) - 10):len(ms_extremist_users)]
+    ms_extremist_users = Reddit.most_successful(my_reddit.ls_users, 10,
+                                                lambda user: user.success
+                                                if user.fake_bias > 0.8 or user.fake_bias < 0.2
+                                                else -1000,
+                                                worst_user)
 
     # finish
     print(f"Simulation finished after {time.process_time() - start_time} seconds")

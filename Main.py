@@ -51,31 +51,16 @@ if __name__ == '__main__':
     ms_posts = Reddit.most_successful(my_reddit.ls_posts, 10, lambda post: post.success, worst_post)
 
     # find most successful users
-    ms_users: [Reddit.User] = [my_reddit.ls_users[0]]
-    for user in my_reddit.ls_users:
-        # filter for the 10 most successful users
-        if user.success > ms_users[0].success:
-            i = 0
-            while i < len(ms_users):
-                if user.success < ms_users[i].success:
-                    break
-                i += 1
-            ms_users.insert(i, user)
-            ms_users = ms_users[max(0, len(ms_users) - 10):len(ms_users)]
+    worst_user = copy.deepcopy(my_reddit.ls_users[0])
+    worst_user.success = -1000
+    ms_users = Reddit.most_successful(my_reddit.ls_users, 10, lambda user: user.success, worst_user)
 
     # find most successful extremist users
-    ms_extremist_users: [Reddit.User] = [copy.deepcopy(my_reddit.ls_users[0])]
-    ms_extremist_users[0].success = -1000
-    for user in my_reddit.ls_users:
-        # filter for the 10 most successful users
-        if user.success > ms_extremist_users[0].success and (user.fake_bias > 0.8 or user.fake_bias < 0.2):
-            i = 0
-            while i < len(ms_extremist_users):
-                if user.success < ms_extremist_users[i].success:
-                    break
-                i += 1
-            ms_extremist_users.insert(i, user)
-            ms_extremist_users = ms_extremist_users[max(0, len(ms_extremist_users) - 10):len(ms_extremist_users)]
+    ms_extremist_users = Reddit.most_successful(my_reddit.ls_users, 10,
+                                                lambda user: user.success
+                                                if user.fake_bias > 0.8 or user.fake_bias < 0.2
+                                                else -1000,
+                                                worst_user)
 
     # finish
     print(f"Simulation finished after {time.process_time() - start_time} seconds")
