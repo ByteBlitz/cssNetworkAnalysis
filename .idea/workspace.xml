@@ -3,11 +3,12 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CargoProjects">
-    <cargoProject FILE="$PROJECT_DIR$/speedup/Cargo.toml" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="" />
+    <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,26 +44,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;language.rust.cargo.check&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/maxosterried/PycharmProjects/Reddit",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/speedup" />
       <recent name="$PROJECT_DIR$/plots" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Main">
+    <configuration default="true" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="command" value="run" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,32 +167,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Reddit" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.Main" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.Some_Extension" />
         <item itemvalue="Python.Reddit" />
       </list>
@@ -213,16 +209,7 @@
       <workItem from="1668179442627" duration="6906000" />
       <workItem from="1668426014454" duration="23948000" />
       <workItem from="1668505056276" duration="5539000" />
-      <workItem from="1668536244592" duration="8756000" />
-      <workItem from="1668589957141" duration="402000" />
-      <workItem from="1668592602952" duration="3575000" />
-      <workItem from="1668600910108" duration="6319000" />
-      <workItem from="1668671267289" duration="5105000" />
-      <workItem from="1668694622818" duration="528000" />
-      <workItem from="1668951428774" duration="2041000" />
-      <workItem from="1669022212862" duration="604000" />
-      <workItem from="1669039863634" duration="57000" />
-      <workItem from="1669043622933" duration="1068000" />
+      <workItem from="1668536244592" duration="7755000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -294,21 +281,7 @@
       <option name="project" value="LOCAL" />
       <updated>1668542195150</updated>
     </task>
-    <task id="LOCAL-00011" summary="Added Names to Some_Extension.py and got rid of some bugs I missed 10 minutes ago.">
-      <created>1668544507350</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1668544507350</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Added Rust performance enhancement">
-      <created>1669044478808</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1669044478808</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,9 +310,7 @@
     <MESSAGE value="Finished the rework. I screwed up the runtime constants though" />
     <MESSAGE value="Added touching grass&#10;Improved Subreddit distribution&#10;Changed the rng and added the possibility to save the seed&#10;Improved the Hot Queue&#10;Added more diagrams&#10;Added more statistics, especially considering User success" />
     <MESSAGE value="Built new project structure. If you want to implement moderation, extend Reddit.py as specified in Some_Extension.py. &#10;&#10;Added new functions and more modularity" />
-    <MESSAGE value="Added Names to Some_Extension.py and got rid of some bugs I missed 10 minutes ago." />
-    <MESSAGE value="Added Rust performance enhancement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Rust performance enhancement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Built new project structure. If you want to implement moderation, extend Reddit.py as specified in Some_Extension.py. &#10;&#10;Added new functions and more modularity" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1668536849554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -4,7 +4,7 @@ import Reddit
 
 
 def user_bias_histogram(my_reddit, title):
-    for i in range(Reddit.getN()):
+    for i in range(Reddit.get_n()):
         plt.hist([u.bias.bias[i] for u in my_reddit.ls_users])
         plt.title(f"User Bias Histogram [{title}] of Bias [{i}]")
         plt.show()
@@ -22,7 +22,7 @@ def users(my_reddit):
     plt.title("Average User Bias")
     plt.show()
 
-    for i in range(Reddit.getN()):
+    for i in range(Reddit.get_n()):
         plt.hist([u.bias.bias[i] for u in my_reddit.ls_users], log=True)
         plt.title("Logged User Bias {} Diagram".format(i))
         plt.show()
@@ -35,7 +35,7 @@ def users(my_reddit):
     plt.title("User Consumption")
     plt.show()
 
-    for i in range(Reddit.getN()):
+    for i in range(Reddit.get_n()):
 
         plt.hexbin([u.bias.bias[i] for u in my_reddit.ls_users], [u.success for u in my_reddit.ls_users],
                    norm=mcolors.LogNorm())
@@ -57,7 +57,7 @@ def posts(my_reddit):
     plt.hist([p.score() for p in my_reddit.ls_posts], log=True, color='r')
     plt.title("Post Score")
     plt.show()
-    for i in range(Reddit.getN()):
+    for i in range(Reddit.get_n()):
 
         plt.hexbin([p.bias.bias[i] for p in my_reddit.ls_posts], [p.score() for p in my_reddit.ls_posts],
                    norm=mcolors.LogNorm())

@@ -14,7 +14,7 @@
 # imports
 import math
 import copy
-
+import Names
 import numpy as np
 
 # global vars
@@ -24,15 +24,33 @@ rng = np.random.default_rng(seed=seed)
 
 
 # functions
-<<<<<<< HEAD
-def getN():
-    return 5
+def get_n():
+    return 4
 
-=======
->>>>>>> d1dbc4f564c31d25258b73ac66788fc901cbff74
+
 def as_probability(val):
     """Keep numbers in [0,1] with this function. """
     return min(max(val, 0), 1)
+
+
+# as_probability func but for lists
+def as_probabilityList(bias):
+    as_list = []
+    for val in bias.bias:
+        as_list.append(as_probability(val))
+    return Bias(as_list)
+
+
+# getting a normally distributed n-dimensional bias
+# n: dimension of bias
+# bias: base bias (e.g. 0.5 for user bias initialization, user bias for calculating post bias)
+# rn: range of normal distribution
+# FIXME: use different distributions to vary polarization of bias components
+def get_normal_dist_bias(n, bias, rn):
+    postBias = []
+    for i in range(n):
+        postBias.append(rng.normal(bias.bias[i], rn))
+    return Bias(postBias)
 
 
 def most_successful(seq, cnt, metric, worst):
@@ -51,6 +69,23 @@ def most_successful(seq, cnt, metric, worst):
     return ms_list
 
 
+# defining a class for an opinion bias
+class Bias:
+    def __init__(self, bias_list):
+        self.bias = bias_list
+        self.n = len(bias_list)
+
+    def diff(self, b):
+        return Bias([abs(self.bias[i] - b.bias[i]) for i in range(get_n())])
+
+    # using "norm" interchangeably with a scalar associated with the n-dim opinion
+    def norm(self):
+        n = 0
+        for i in range(get_n()):
+            n += self.bias[i]
+        return n / get_n()
+
+
 # objects
 class Post:
     # FIXME [assuming]:
@@ -60,7 +95,7 @@ class Post:
         # properties
         self.creation = timestamp
         self.creator: int = creator
-        self.fake_bias = as_probability(rng.normal(bias, 0.1))
+        self.bias = as_probabilityList(get_normal_dist_bias(get_n(), bias, 0.1))
         # TODO: come up with a better standard deviation
         self.ups = 1
         self.downs = 0
@@ -92,8 +127,8 @@ class Subreddit:
         self.new = []
 
         # properties
-        self.bias = as_probability(rng.normal(bias, 0.2))
-        self.tolerance = as_probability(rng.normal(tolerance, 0.2))
+        self.bias: Bias = as_probabilityList(get_normal_dist_bias(get_n(), bias, 0.2))
+        self.tolerance = as_probabilityList(get_normal_dist_bias(get_n(), tolerance, 0.2))
 
         # statistics
         self.stat_bias = []
@@ -104,13 +139,16 @@ class Subreddit:
         self.hot.append(post)
         # amortize sorting by either using a binary heap or splitting time steps into insertion, then sort
 
+    # getting the averaged out bias on the level of every dimension
     def get_bias(self):
-        num = 0.0
-        den = 0.0
+        num = [0.0 for i in range(get_n())]
+        den = [0.0 for i in range(get_n())]
         for post in self.hot:
-            num += post.fake_bias * post.hot()
-            den += post.hot()
-        return num / den if not den == 0 else 0.5
+            for i in range(get_n()):
+                num[i] += post.bias.bias[i] * post.hot()
+                den[i] += post.hot()
+        return [num[i] / den[i] if not den[i] == 0 else 0.5 for i in range(get_n())]
+        # return num / den if not den == 0 else 0.5
 
 
 class User:
@@ -118,10 +156,12 @@ class User:
     # everyone is equally smart
     # only upvotes/downvotes as regulators
     # repetition effect not taken into account, introduce vulnerability variable
-    def __init__(self, usr_id, fake_bias, creator_bias, touch_grass_bias, ls_subreddits, usr_subreddit_cap):
+    def __init__(self, usr_id, bias, creator_bias, touch_grass_bias, ls_subreddits, usr_subreddit_cap):
         # properties
         self.id: int = usr_id
-        self.fake_bias: float = as_probability(rng.normal(fake_bias, 0.2))
+        self.name: str = Names.generateName()
+        # self.fake_bias: float = as_probability(rng.normal(fake_bias, 0.2))
+        self.bias = as_probabilityList(get_normal_dist_bias(get_n(), bias, 0.2))
         # TODO: n dimensions for n > 1 , n e Z
         self.creator_bias: float = as_probability(rng.normal(creator_bias, 0.01))
         self.touch_grass_bias: float = as_probability(rng.normal(touch_grass_bias, 0.2))
@@ -135,7 +175,8 @@ class User:
         self.success: float = 0.0
 
         # get subreddits
-        probs = [1 / max(abs(sr.bias - self.fake_bias), 0.001) for sr in ls_subreddits]
+        # probs = [1 / max(abs(sr.bias - self.fake_bias), 0.001) for sr in ls_subreddits]
+        probs = [1 / max(sr.bias.diff(self.bias).norm(), 0.001) for sr in ls_subreddits]
         s = sum(probs)
         probs = [p / s for p in probs]
 
@@ -148,41 +189,59 @@ class User:
             subreddit.users += 1
 
     # function that evaluates if a user agrees to a post
-    def agree(self, post, threshold):
+    def agree(self, post_bias, threshold):
         """Evaluates, whether the user agrees with a post enough, to change their opinion"""
         # TODO: get me a proper function of agreement
         # make it probabilistic
         # take into account repetition effects (equivalent to acceleration)
         # take into account herd bias
         # importance array
-        return abs(self.fake_bias - post.fake_bias) < threshold
+        # return abs(self.fake_bias - post.fake_bias) < threshold
+        return self.bias.diff(post_bias).norm() < threshold
 
-    def disagree(self, post, threshold):
+    def disagree(self, post_bias, threshold):
         """Evaluates, whether the user disagrees with a post enough, to change their opinion"""
         # TODO: get me a proper function of disagreement
-        return abs(self.fake_bias - post.fake_bias) > (1 - threshold)
+        # return abs(self.fake_bias - post.fake_bias) > (1 - threshold)
+        return self.bias.diff(post_bias).norm() > (1 - threshold)
 
     def vote(self, post):
-        if self.agree(post, 0.2):
+        if self.agree(post.bias, 0.2):
             post.ups += 1
-        elif self.disagree(post, 0.2):
+        elif self.disagree(post.bias, 0.2):
             post.downs += 1
 
-    def new_bias(self, post):
-        if self.agree(post, 0.1):
-            # post can inc one's fake bias maximum 20%
-            new_bias = as_probability((self.fake_bias * 5 + post.fake_bias) / 6)
-            post.success += abs(self.fake_bias - new_bias)
-            self.fake_bias = new_bias
-        elif self.disagree(post, 0.1):
-            # post can dec one's fake bias by maximum 16%
-            new_bias = as_probability((self.fake_bias * 7 - post.fake_bias) / 6)
-            post.success -= abs(self.fake_bias - new_bias)
-            self.fake_bias = new_bias
+    # def new_bias(self, post):
+    #    if self.agree(post, 0.1):
+    #        # post can inc one's fake bias maximum 20%
+    #        new_bias = as_probability((self.fake_bias * 5 + post.fake_bias) / 6)
+    #        post.success += abs(self.fake_bias - new_bias)
+    #        self.fake_bias = new_bias
+    #    elif self.disagree(post, 0.1):
+    #        # post can dec one's fake bias by maximum 16%
+    #        new_bias = as_probability((self.fake_bias * 7 - post.fake_bias) / 6)
+    #        post.success -= abs(self.fake_bias - new_bias)
+    #        self.fake_bias = new_bias
+
+    def new_bias(self, user_bias, post, influence):
+        # print(type(userBias.bias))
+        # print(type(post.bias))
+        if self.agree(post.bias, 0.1):
+            new_bias = as_probabilityList(Bias(
+                [(user_bias.bias[i] * (1 / influence) + post.bias.bias[i]) / ((1 / influence) + 1) for i in
+                 range(get_n())]))
+            post.success += self.bias.diff(new_bias).norm()
+            self.bias = new_bias
+        elif self.disagree(post.bias, 0.1):
+            new_bias = as_probabilityList(Bias(
+                [(user_bias.bias[i] * ((1 / influence) + 1) + post.bias.bias[i]) / (1 / influence) for i in
+                 range(get_n())]))
+            post.success -= self.bias.diff(new_bias).norm()
+            self.bias = new_bias
 
     def create_post(self):
         self.created_posts += 1
-        post = Post(self.id, self.fake_bias)
+        post = Post(self.id, self.bias)
 
         # select up to 3 subreddits to post on
         for subreddit in rng.choice(self.subreddits, rng.choice(min(3, len(self.subreddits)) + 1), replace=False):
@@ -206,33 +265,21 @@ class User:
             self.vote(post)
 
             # reweigh bias
-            self.new_bias(post)
+            self.new_bias(self.bias, post, 0.2)
 
 
 class Network:
     def __init__(self):
         # quantities
-<<<<<<< HEAD
         self.cnt_subreddits = 30
-        self.cnt_users = 10000
+        self.cnt_users = 2000
 
         # subreddit properties
-        self.sr_bias = Bias([0.5 for i in range(getN())])
-        self.sr_tolerance = Bias([0.4 for i in range(getN())])
+        self.sr_bias = Bias([0.3 + 0.1 * i for i in range(get_n())])
+        self.sr_tolerance = Bias([0.4 for i in range(get_n())])
 
         # user properties
-        self.usr_bias = Bias([0.5 for i in range(getN())])
-=======
-        self.cnt_subreddits = 50
-        self.cnt_users = 10000
-
-        # subreddit properties
-        self.sr_bias = 0.5
-        self.sr_tolerance = 0.4
-
-        # user properties
-        self.usr_bias = 0.5
->>>>>>> d1dbc4f564c31d25258b73ac66788fc901cbff74
+        self.usr_bias = Bias([0.2 + 0.15 * i for i in range(get_n())])
         self.usr_touch_grass_bias = 0.4
         self.usr_creator_bias = 0.03
         self.usr_subreddit_cap = 10
@@ -264,7 +311,7 @@ class Network:
             # 1: create posts
             elif user.creator_bias > rng.random():
                 post = user.create_post()
-                self.stats_post_bias_sum += post.fake_bias
+                self.stats_post_bias_sum += post.bias.norm()
                 self.ls_posts.append(post)
 
             # 2: consume posts
@@ -272,7 +319,7 @@ class Network:
                 user.consume_post()
 
             # update statistics
-            self.stats_user_bias_sum += user.fake_bias
+            self.stats_user_bias_sum += user.bias.norm()
 
         for subreddit in self.ls_subreddits:
             # sort the hot lists
