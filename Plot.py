@@ -11,7 +11,7 @@ def user_bias_histogram(my_reddit, title):
 
     return
 
-def sr_bias_histogram(my_reddit, t)
+#def sr_bias_histogram(my_reddit, t)
 
 
 def users(my_reddit):

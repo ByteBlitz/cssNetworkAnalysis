@@ -6,7 +6,7 @@ import Plot
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 30  # in per_round
+    rounds = 10  # in per_round
     per_round = 12
     round_times = []
 

@@ -25,7 +25,7 @@ rng = np.random.default_rng(seed=seed)
 
 # functions
 def getN():
-    return 4
+    return 5
 
 def as_probability(val):
     """Keep numbers in [0,1] with this function. """
@@ -264,14 +264,14 @@ class Network:
     def __init__(self):
         # quantities
         self.cnt_subreddits = 30
-        self.cnt_users = 2000
+        self.cnt_users = 10000
 
         # subreddit properties
-        self.sr_bias = Bias([0.3 + 0.1 * i for i in range(getN())])
+        self.sr_bias = Bias([0.5 for i in range(getN())])
         self.sr_tolerance = Bias([0.4 for i in range(getN())])
 
         # user properties
-        self.usr_bias = Bias([0.2 + 0.15 * i for i in range(getN())])
+        self.usr_bias = Bias([0.5 for i in range(getN())])
         self.usr_touch_grass_bias = 0.4
         self.usr_creator_bias = 0.03
         self.usr_subreddit_cap = 10
