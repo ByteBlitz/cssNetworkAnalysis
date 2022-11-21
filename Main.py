@@ -6,7 +6,7 @@ import Plot
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 10  # in per_round
+    rounds = 30  # in per_round
     per_round = 12
     round_times = []
 
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     # find most successful extremist users
     ms_extremist_users = Reddit.most_successful(my_reddit.ls_users, 10,
                                                 lambda user: user.success
-                                                if user.fake_bias > 0.8 or user.fake_bias < 0.2
+                                                if user.bias.norm() > 0.8 or user.bias.norm() < 0.2
                                                 else -1000,
                                                 worst_user)
 
