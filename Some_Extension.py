@@ -1,4 +1,5 @@
 # This file is a template about how to extend the main reddit network to implement your moderation additions
+import speedup
 
 import Reddit
 import time
@@ -11,6 +12,12 @@ import Names
 # extend or override original data structures here
 def make_name():
     return "".join([np.random.choice(Names.names), " ", np.random.choice(Names.surnames)])
+
+
+class Post:
+    def __init__(self, creator, bias):
+        fake_bias = Reddit.as_probability(Reddit.rng.normal(bias, 0.1))
+        self.post = speedup.Post(Reddit.timestamp, creator, fake_bias)
 
 
 class User(Reddit.User):

@@ -203,11 +203,35 @@ class User:
             self.new_bias(post)
 
 
+class SmartUser(User):
+    def __init__(self, usr_id, fake_bias, creator_bias, touch_grass_bias, ls_subreddits, usr_subreddit_cap):
+        User.__init__(self, usr_id, fake_bias, creator_bias, touch_grass_bias, ls_subreddits, usr_subreddit_cap)
+        self.target_subreddit: Subreddit = rng.choice(self.subreddits, 1)
+
+    def find_tsr(self):
+        probs = [1 / abs(0.2 - abs(self.fake_bias - sr.bias)) for sr in self.subreddits]
+        s_probs = sum(probs)
+        probs = np.array(p/s_probs for p in probs)
+        return rng.choice(self.subreddits, 1, p=probs)
+
+    def create_post(self):
+        # select subreddit at random or stay in last subreddit to multiply repetition effects
+        tsr = self.target_subreddit \
+            if abs(0.2 - abs(self.target_subreddit.bias - self.fake_bias)) <= 0.1 else self.find_tsr()
+
+        # taylor post
+        if tsr.bias < self.fake_bias:
+            post = Post(self.id, tsr.bias + 0.05)
+        elif tsr.bias >= self.fake_bias:
+            post = Post(self.id, tsr.bias - 0.05)
+
+
 class Network:
     def __init__(self):
         # quantities
         self.cnt_subreddits = 50
         self.cnt_users = 10000
+        self.cnt_smart_users = 100
 
         # subreddit properties
         self.sr_bias = 0.5
@@ -275,5 +299,3 @@ class Network:
     def finalize(self):
         for post in self.ls_posts:
             self.ls_users[post.creator].success += post.success
-
-

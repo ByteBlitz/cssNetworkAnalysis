@@ -2,7 +2,13 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/speedup/pyproject/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/speedup/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/speedup/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/speedup/target" />
+      <excludeFolder url="file://$MODULE_DIR$/speedup/pyproject/target" />
+      <excludeFolder url="file://$MODULE_DIR$/speedup/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
