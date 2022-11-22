@@ -2,12 +2,16 @@ import time
 import copy
 import Reddit
 import Plot
+import numpy as np
+import numpy.linalg as linalg
 
-if __name__ == '__main__':
+
+@profile
+def main():
     # vars
     start_time = time.process_time()
-    rounds = 10  # in per_round
-    per_round = 12
+    rounds = 20  # in per_round
+    per_round = 24
     round_times = []
 
     # build
@@ -23,7 +27,7 @@ if __name__ == '__main__':
     print(f"Data structures built in {time.process_time() - start_time} seconds")
 
     # plots in the beginning
-    Plot.user_bias_histogram(my_reddit, "start")
+    # Plot.user_bias_histogram(my_reddit, "start")
 
     # simulate
     for i in range(rounds):
@@ -41,26 +45,30 @@ if __name__ == '__main__':
     my_reddit.finalize()
 
     # plot stuff
-    Plot.users(my_reddit)
-    Plot.posts(my_reddit)
-    Plot.performance(round_times)
+    # Plot.users(my_reddit)
+    # Plot.posts(my_reddit)
+    # Plot.performance(round_times)
 
     # find most successful posts
     worst_post = copy.deepcopy(my_reddit.ls_posts[0])
-    worst_post.success = -1000
-    ms_posts = Reddit.most_successful(my_reddit.ls_posts, 10, lambda post: post.success, worst_post)
+    worst_post.success = np.array([-1000 for _ in range(Reddit.get_n())])
+    ms_posts = Reddit.most_successful(my_reddit.ls_posts, 10, lambda post: np.sum(post.success), worst_post)
 
     # find most successful users
     worst_user = copy.deepcopy(my_reddit.ls_users[0])
-    worst_user.success = -1000
-    ms_users = Reddit.most_successful(my_reddit.ls_users, 10, lambda user: user.success, worst_user)
+    worst_user.success = np.array([-1000 for _ in range(Reddit.get_n())])
+    ms_users = Reddit.most_successful(my_reddit.ls_users, 10, lambda user: np.sum(user.success), worst_user)
 
     # find most successful extremist users
     ms_extremist_users = Reddit.most_successful(my_reddit.ls_users, 10,
-                                                lambda user: user.success
-                                                if user.bias.norm() > 0.8 or user.bias.norm() < 0.2
+                                                lambda user: np.sum(user.success)
+                                                if linalg.norm(user.bias) > 0.8 or linalg.norm(user.bias) < 0.2
                                                 else -1000,
                                                 worst_user)
 
     # finish
     print(f"Simulation finished after {time.process_time() - start_time} seconds")
+
+
+if __name__ == '__main__':
+    main()
