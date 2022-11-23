@@ -11,11 +11,9 @@
 #
 # TODO:
 # replace or reset users or make them change their opinion in downtime
-# revert changes for simulate_round
 # implement china reddit
 # improve agreement function
 # Merkeffekt für
-
 
 
 # imports
@@ -235,30 +233,31 @@ class User:
             # reweigh bias
             self.new_bias(self.bias, post, 0.2)
 
-    def switch_subreddit(self, allsubs:list[Subreddit]):
+    def switch_subreddit(self, allsubs: list[Subreddit]):
         # TODO
         # Users should switch subreddits when they are dissatisfied
         subcount = len(self.subreddits)
 
         for sub in self.subreddits:
             p = (subcount + 1) / (self.usr_subreddit_cap + 1) * (1 - np.linalg.norm(np.subtract(self.bias, sub.bias)))
-            if(p > rng.random() * 0.1 + 0.9):
+            if (p > rng.random() * 0.1 + 0.9):
                 self.subreddits.remove(sub)
                 sub.users -= 1
                 subcount -= 1
 
-        if(subcount == 0):
-            if(rng.random() < 0.97):
+        if (subcount == 0):
+            if (rng.random() < 0.97):
                 return
 
         arraydif = np.setdiff1d(allsubs, self.subreddits)
 
         for sub in arraydif:
             p = (subcount + 1) / (self.usr_subreddit_cap + 1) * np.linalg.norm(np.subtract(self.bias, sub.bias))
-            if(p < rng.random() * 0.05):
+            if (p < rng.random() * 0.05):
                 self.subreddits.append(sub)
                 sub.users += 1
                 subcount += 1
+
 
 class Network:
     def __init__(self):
