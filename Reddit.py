@@ -13,7 +13,6 @@
 # replace or reset users or make them change their opinion in downtime
 # implement china reddit
 # improve agreement function
-# Merkeffekt für
 
 
 # imports
@@ -105,11 +104,9 @@ class Subreddit:
         self.new = []
 
         # properties
-        self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
-        # tolerance
 
         # statistics
-        self.stat_bias = [self.bias]
+        self.stat_bias = [np.clip(rng.normal(bias_list, 0.2), 0, 1)]
         self.users = 0
 
     def enqueue(self, post: Post):
@@ -118,7 +115,7 @@ class Subreddit:
         # amortize sorting by either using a binary heap or splitting time steps into insertion, then sort
 
     # @profile
-    def get_bias(self):
+    def current_bias(self):
         """Return bias-vector over hot-queue weighted by the hot-score. """
         num = np.full(get_n(), 0.0, float)
         den = 0.0
@@ -128,7 +125,11 @@ class Subreddit:
             den += post.hot()
 
         return num / den if not den == 0 else np.full(get_n(), 0.5, float)
-
+    
+    def update_bias(self):
+        """Update the subreddit bias. Old values are weighted double. """
+        self.stat_bias.append((self.stat_bias[-1] * 2 + self.current_bias()) / 3)
+        
 
 class User:
     # FIXME [assuming]:
@@ -339,7 +340,7 @@ class Network:
             # cut the hot lists to be the first [50] elements
             subreddit.hot = subreddit.hot[0:50]
             # calculate and save the new subreddit bias
-            new_bias = subreddit.get_bias()
+            new_bias = subreddit.current_bias()
             subreddit.stat_bias.append(new_bias)
             subreddit.bias = new_bias
 
