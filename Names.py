@@ -6,6 +6,6 @@ surnames = np.array(["Mueller", "Maier", "Schmidt", "Doe"])
 
 
 def generateName():
-    name = random.choice(names)
-    surname = random.choice(surnames)
+    name = random.choice(names.tolist())
+    surname = random.choice(surnames.tolist())
     return name + " " + surname

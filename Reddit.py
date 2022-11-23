@@ -94,7 +94,7 @@ class Post:
 
 
 class Subreddit:
-    def __init__(self, bias_list: [float], tolerance):
+    def __init__(self, bias_list: list[float], tolerance):
         # post queues
         self.hot = []
         self.new = []
@@ -139,7 +139,7 @@ class User:
 
         # self.creator_bias: float = as_probability(rng.normal(creator_bias, 0.01))
         # self.touch_grass_bias: float = as_probability(rng.normal(touch_grass_bias, 0.2))
-        self.subreddits: [Subreddit] = []
+        self.subreddits: list[Subreddit] = []
         # TODO: convert to array of arrays of subreddits, the bias towards the subreddit and the respective positions
         #  in the hot/new list
 
@@ -228,6 +228,30 @@ class User:
             # reweigh bias
             self.new_bias(self.bias, post, 0.2)
 
+    def switch_subreddit(self, allsubs:list[Subreddit]):
+        # TODO
+        # Users should switch subreddits when they are dissatisfied
+        subcount = len(self.subreddits)
+
+        for sub in self.subreddits:
+            p = (subcount + 1) / (self.usr_subreddit_cap + 1) * (1 - np.linalg.norm(np.subtract(self.bias, sub.bias)))
+            if(p > rng.random() * 0.1 + 0.9):
+                self.subreddits.remove(sub)
+                sub.users -= 1
+                subcount -= 1
+        
+        if(subcount == 0):
+            if(rng.random() < 0.97):
+                return
+        
+        arraydif = np.setdiff1d(allsubs, self.subreddits)
+
+        for sub in arraydif:
+            p = (subcount + 1) / (self.usr_subreddit_cap + 1) * np.linalg.norm(np.subtract(self.bias, sub.bias))
+            if(p < rng.random() * 0.05):
+                self.subreddits.append(sub)
+                sub.users += 1
+                subcount += 1
 
 def users_consume(user):
     user.consume_post()
@@ -264,7 +288,7 @@ class Network:
         tmp = np.clip(rng.normal(self.usr_create_bias, 0.01, self.cnt_users), 0, 1)
         self.ls_create_bias = tmp / np.sum(tmp)
 
-        self.ls_posts: [Post] = []
+        self.ls_posts: list[Post] = []
 
         # statistics
         self.stats_post_bias_sum = 0.0
