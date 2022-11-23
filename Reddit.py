@@ -98,12 +98,15 @@ class Post:
 
 
 class Subreddit:
-    def __init__(self, bias_list: list[float], tolerance):
+    def __init__(self, bias_list: list[float], tolerance, id):
         # post queues
         self.hot = []
         self.new = []
 
         # properties
+        self.id = id
+        self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        # tolerance
 
         # statistics
         self.stat_bias = [np.clip(rng.normal(bias_list, 0.2), 0, 1)]
@@ -125,11 +128,14 @@ class Subreddit:
             den += post.hot()
 
         return num / den if not den == 0 else np.full(get_n(), 0.5, float)
-    
+
     def update_bias(self):
         """Update the subreddit bias. Old values are weighted double. """
         self.stat_bias.append((self.stat_bias[-1] * 2 + self.current_bias()) / 3)
-        
+
+
+    def __lt__(self, other):
+        return self.id < other.id
 
 class User:
     # FIXME [assuming]:
@@ -146,6 +152,7 @@ class User:
         self.create_bias = as_probability(rng.normal(create_bias, 0.01))
 
         self.subreddits: list[Subreddit] = []
+        self.usr_subreddit_cap = usr_subreddit_cap
         # TODO: convert to array of arrays of subreddits, the bias towards the subreddit and the respective positions
         #  in the hot/new list
 
@@ -239,25 +246,33 @@ class User:
         # Users should switch subreddits when they are dissatisfied
         subcount = len(self.subreddits)
 
-        for sub in self.subreddits:
+        # Create local copy?
+        selfReddits = self.subreddits
+
+        # Delete subreddits that we do not agree with anymore
+        for sub in selfReddits:
             p = (subcount + 1) / (self.usr_subreddit_cap + 1) * (1 - np.linalg.norm(np.subtract(self.bias, sub.bias)))
-            if (p > rng.random() * 0.1 + 0.9):
-                self.subreddits.remove(sub)
+            if(p > rng.random() * 0.1 + 0.9):
+                selfReddits = np.delete(selfReddits, np.argwhere(selfReddits == sub))
                 sub.users -= 1
                 subcount -= 1
 
-        if (subcount == 0):
-            if (rng.random() < 0.97):
+        # Disgruntled users stay away for a while
+        if(subcount == 0):
+            if(rng.random() < 0.97):
                 return
 
-        arraydif = np.setdiff1d(allsubs, self.subreddits)
-
+        # Add new subreddits that the user agrees with
+        arraydif = np.setdiff1d(allsubs, selfReddits)
         for sub in arraydif:
             p = (subcount + 1) / (self.usr_subreddit_cap + 1) * np.linalg.norm(np.subtract(self.bias, sub.bias))
-            if (p < rng.random() * 0.05):
-                self.subreddits.append(sub)
+            if(p < rng.random() * 0.05):
+                selfReddits = np.append(selfReddits, sub)
                 sub.users += 1
                 subcount += 1
+
+        # Apply changes
+        self.subreddits = selfReddits
 
 
 class Network:
@@ -278,7 +293,7 @@ class Network:
         self.usr_subreddit_cap = 10
 
         # ls_s
-        self.ls_subreddits = np.array([Subreddit(self.sr_bias, self.sr_tolerance) for _ in range(self.cnt_subreddits)])
+        self.ls_subreddits = np.array([Subreddit(self.sr_bias, self.sr_tolerance, i) for i in range(self.cnt_subreddits)])
         self.ls_users = np.array(
             [User(usr_id, self.usr_bias, self.usr_online_bias, self.usr_create_bias,
                   self.ls_subreddits, self.usr_subreddit_cap)
@@ -299,6 +314,8 @@ class Network:
 
     # @profile
     def simulate_round(self):
+        global timestamp
+
         self.stats_user_bias_sum = 0.0
         # TODO: try to partition users for benchmark reasons
         # creators: np.ndarray = rng.choice(self.ls_users,
@@ -347,7 +364,7 @@ class Network:
         self.stats_biases.append(self.stats_user_bias_sum / self.cnt_users)
         self.stats_post_biases.append(self.stats_post_bias_sum / len(self.ls_posts)
                                       if not len(self.ls_posts) == 0 else 0.5)
-        global timestamp
+
         timestamp += 1
 
     def finalize(self):
