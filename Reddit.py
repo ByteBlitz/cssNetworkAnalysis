@@ -11,6 +11,11 @@
 #
 # TODO:
 # replace or reset users or make them change their opinion in downtime
+# implement china reddit
+# improve agreement function
+# Merkeffekt für
+
+
 # imports
 import math
 import copy
@@ -105,7 +110,7 @@ class Subreddit:
         # tolerance
 
         # statistics
-        self.stat_bias = []
+        self.stat_bias = [self.bias]
         self.users = 0
 
     def enqueue(self, post: Post):
@@ -133,15 +138,15 @@ class User:
     # everyone is equally smart
     # only upvotes/downvotes as regulators
     # repetition effect not taken into account, introduce vulnerability variable
-    def __init__(self, usr_id: int, bias_list: np.array, creator_bias: float, touch_grass_bias: float,
+    def __init__(self, usr_id: int, bias_list: np.array, online_bias: float, create_bias: float,
                  ls_subreddits: np.array, usr_subreddit_cap: int):
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
         self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        self.online_bias = as_probability(rng.normal(online_bias, 0.2))
+        self.create_bias = as_probability(rng.normal(create_bias, 0.01))
 
-        # self.creator_bias: float = as_probability(rng.normal(creator_bias, 0.01))
-        # self.touch_grass_bias: float = as_probability(rng.normal(touch_grass_bias, 0.2))
         self.subreddits: list[Subreddit] = []
         self.usr_subreddit_cap = usr_subreddit_cap
         # TODO: convert to array of arrays of subreddits, the bias towards the subreddit and the respective positions
@@ -232,7 +237,7 @@ class User:
             # reweigh bias
             self.new_bias(self.bias, post, 0.2)
 
-    def switch_subreddit(self, allsubs:list[Subreddit]):
+    def switch_subreddit(self, allsubs: list[Subreddit]):
         # TODO
         # Users should switch subreddits when they are dissatisfied
         subcount = len(self.subreddits)
@@ -265,16 +270,12 @@ class User:
         # Apply changes
         self.subreddits = selfReddits
 
-def users_consume(user):
-    user.consume_post()
-    # self.stats_user_bias_sum += linalg.norm(user.bias)
-
 
 class Network:
     def __init__(self):
         # quantities
-        self.cnt_subreddits = 20
-        self.cnt_users = 10000
+        self.cnt_subreddits = 30
+        self.cnt_users = 2000
 
         # subreddit properties
         self.sr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
@@ -283,22 +284,21 @@ class Network:
         # user properties
         # FIXME:
         self.usr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
-        self.usr_touch_grass_bias = 0.4
-        self.usr_consume_bias = 0.57
+        self.usr_online_bias = 0.60
         self.usr_create_bias = 0.03
         self.usr_subreddit_cap = 10
 
         # ls_s
         self.ls_subreddits = np.array([Subreddit(self.sr_bias, self.sr_tolerance, i) for i in range(self.cnt_subreddits)])
         self.ls_users = np.array(
-            [User(usr_id, self.usr_bias, self.usr_create_bias, self.usr_touch_grass_bias,
+            [User(usr_id, self.usr_bias, self.usr_online_bias, self.usr_create_bias,
                   self.ls_subreddits, self.usr_subreddit_cap)
              for usr_id in range(self.cnt_users)])
 
-        tmp = np.clip(rng.normal(self.usr_consume_bias, 0.1, self.cnt_users), 0, 1)
-        self.ls_consume_bias = tmp / np.sum(tmp)
-        tmp = np.clip(rng.normal(self.usr_create_bias, 0.01, self.cnt_users), 0, 1)
-        self.ls_create_bias = tmp / np.sum(tmp)
+        # tmp = np.clip(rng.normal(self.usr_consume_bias, 0.1, self.cnt_users), 0, 1)
+        # self.ls_consume_bias = tmp / np.sum(tmp)
+        # tmp = np.clip(rng.normal(self.usr_create_bias, 0.01, self.cnt_users), 0, 1)
+        # self.ls_create_bias = tmp / np.sum(tmp)
 
         self.ls_posts: list[Post] = []
 
@@ -349,26 +349,21 @@ class Network:
         #     t.join()
 
         # simulate users
-        # for user in self.ls_users:
-        #     # TODO: add switching subreddits
-        #     # 0: sleep
-        #     if user.touch_grass_bias > rng.random():
-        #         # TODO: reset tmp (doesn't exist yet)
-        #         pass
-        #
-        #     # 1: create posts
-        #     elif user.creator_bias > rng.random():
-        #         post = user.create_post()
-        #         self.stats_post_bias_sum += linalg.norm(post.bias)
-        #         self.ls_posts.append(post)
-        #
-        #     # 2: consume posts
-        #     else:
-        #         user.consume_post()
+        user: User
+        for user in self.ls_users:
+            # TODO: add switching subreddits
+            # 0: online?
+            if user.online_bias > rng.random():
+                # TODO: reset tmp (doesn't exist yet)
+                if user.create_bias > rng.random():
+                    post = user.create_post()
+                    self.stats_post_bias_sum += linalg.norm(post.bias)
+                    self.ls_posts.append(post)
+                else:
+                    user.consume_post()
 
-        # update statistics
-        # for user in self.ls_users:
-        #    self.stats_user_bias_sum += linalg.norm(user.bias)
+            # update statistics
+            self.stats_user_bias_sum += linalg.norm(user.bias)
 
         for subreddit in self.ls_subreddits:
             # sort the hot lists
