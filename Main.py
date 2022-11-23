@@ -6,8 +6,7 @@ import numpy as np
 import numpy.linalg as linalg
 
 
-@profile
-def main():
+if __name__ == '__main__':
     # vars
     start_time = time.process_time()
     rounds = 20  # in per_round
@@ -27,7 +26,7 @@ def main():
     print(f"Data structures built in {time.process_time() - start_time} seconds")
 
     # plots in the beginning
-    # Plot.user_bias_histogram(my_reddit, "start")
+    Plot.user_bias_histogram(my_reddit, "start")
 
     # simulate
     for i in range(rounds):
@@ -45,9 +44,9 @@ def main():
     my_reddit.finalize()
 
     # plot stuff
-    # Plot.users(my_reddit)
-    # Plot.posts(my_reddit)
-    # Plot.performance(round_times)
+    Plot.users(my_reddit)
+    Plot.posts(my_reddit)
+    Plot.performance(round_times)
 
     # find most successful posts
     worst_post = copy.deepcopy(my_reddit.ls_posts[0])
@@ -62,13 +61,9 @@ def main():
     # find most successful extremist users
     ms_extremist_users = Reddit.most_successful(my_reddit.ls_users, 10,
                                                 lambda user: np.sum(user.success)
-                                                if linalg.norm(user.bias) > 0.8 or linalg.norm(user.bias) < 0.2
+                                                if linalg.norm(user.bias) > 1.6 or linalg.norm(user.bias) < 0.4
                                                 else -1000,
                                                 worst_user)
 
     # finish
     print(f"Simulation finished after {time.process_time() - start_time} seconds")
-
-
-if __name__ == '__main__':
-    main()

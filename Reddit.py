@@ -28,11 +28,11 @@ rng = np.random.default_rng(seed=seed)
 
 # functions
 def get_n():
-    return 4
+    return 2
 
 
 def get_sqrt_n():
-    return 2
+    return 1.44
 
 
 def as_probability(val):
@@ -61,7 +61,7 @@ class Post:
     # FIXME [assuming]:
     # all posts are of similar quality and similarly convincing
 
-    @profile
+    # @profile
     def __init__(self, creator, bias):
         # properties
         self.creation = timestamp
@@ -75,11 +75,11 @@ class Post:
         self.views = 1
         self.success = np.full(get_n(), 0.0, float)
 
-    @profile
+    # @profile
     def score(self):
         return self.ups - self.downs
 
-    @profile
+    # @profile
     def hot(self):
         """The hot formula. Should match the equivalent function in postgres."""
         s = self.score()
@@ -112,7 +112,7 @@ class Subreddit:
         self.hot.append(post)
         # amortize sorting by either using a binary heap or splitting time steps into insertion, then sort
 
-    @profile
+    # @profile
     def get_bias(self):
         """Return bias-vector over hot-queue weighted by the hot-score. """
         num = np.full(get_n(), 0.0, float)
@@ -137,8 +137,8 @@ class User:
         self.name: str = Names.generateName()
         self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
 
-        self.creator_bias: float = as_probability(rng.normal(creator_bias, 0.01))
-        self.touch_grass_bias: float = as_probability(rng.normal(touch_grass_bias, 0.2))
+        # self.creator_bias: float = as_probability(rng.normal(creator_bias, 0.01))
+        # self.touch_grass_bias: float = as_probability(rng.normal(touch_grass_bias, 0.2))
         self.subreddits: [Subreddit] = []
         # TODO: convert to array of arrays of subreddits, the bias towards the subreddit and the respective positions
         #  in the hot/new list
@@ -161,7 +161,7 @@ class User:
         for subreddit in self.subreddits:
             subreddit.users += 1
 
-    @profile
+    # @profile
     def agree(self, post_bias, threshold):
         """Evaluates, whether the user agrees with a post enough, to change their opinion"""
         # TODO: get me a proper function of agreement
@@ -172,21 +172,21 @@ class User:
         # return abs(self.fake_bias - post.fake_bias) < threshold
         return linalg.norm(self.bias - post_bias) < threshold
 
-    @profile
+    # @profile
     def disagree(self, post_bias, threshold):
         """Evaluates, whether the user disagrees with a post enough, to change their opinion"""
         # TODO: get me a proper function of disagreement
         # return abs(self.fake_bias - post.fake_bias) > (1 - threshold)
         return linalg.norm(self.bias - post_bias) > (get_sqrt_n() - threshold)
 
-    @profile
+    # @profile
     def vote(self, post):
         if self.agree(post.bias, 0.2 * get_sqrt_n()):
             post.ups += 1
         elif self.disagree(post.bias, 0.2 * get_sqrt_n()):
             post.downs += 1
 
-    @profile
+    # @profile
     def new_bias(self, user_bias, post, influence):
         if self.agree(post.bias, 0.1 * get_sqrt_n()):
             new_bias = np.clip(self.bias * 0.8 + post.bias * 0.2, 0, 1)
@@ -198,7 +198,7 @@ class User:
             post.success -= linalg.norm((self.bias - new_bias))
             self.bias = new_bias
 
-    @profile
+    # @profile
     def create_post(self):
         self.created_posts += 1
         post = Post(self.id, self.bias)
@@ -209,7 +209,7 @@ class User:
 
         return post
 
-    @profile
+    # @profile
     def consume_post(self):
         # select subreddit
         # TODO: add option to stay on a subreddit
@@ -229,29 +229,41 @@ class User:
             self.new_bias(self.bias, post, 0.2)
 
 
+def users_consume(user):
+    user.consume_post()
+    # self.stats_user_bias_sum += linalg.norm(user.bias)
+
+
 class Network:
     def __init__(self):
         # quantities
         self.cnt_subreddits = 20
-        self.cnt_users = 1000
+        self.cnt_users = 10000
 
         # subreddit properties
-        self.sr_bias = np.array([0.2 + 0.6/get_n() * i for i in range(get_n())])
+        self.sr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
         self.sr_tolerance = np.full(get_n(), 0.4, float)
 
         # user properties
         # FIXME:
-        self.usr_bias = np.array([0.2 + 0.6/get_n() * i for i in range(get_n())])
+        self.usr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
         self.usr_touch_grass_bias = 0.4
-        self.usr_creator_bias = 0.03
+        self.usr_consume_bias = 0.57
+        self.usr_create_bias = 0.03
         self.usr_subreddit_cap = 10
 
         # ls_s
         self.ls_subreddits = np.array([Subreddit(self.sr_bias, self.sr_tolerance) for _ in range(self.cnt_subreddits)])
         self.ls_users = np.array(
-            [User(usr_id, self.usr_bias, self.usr_creator_bias, self.usr_touch_grass_bias,
+            [User(usr_id, self.usr_bias, self.usr_create_bias, self.usr_touch_grass_bias,
                   self.ls_subreddits, self.usr_subreddit_cap)
              for usr_id in range(self.cnt_users)])
+
+        tmp = np.clip(rng.normal(self.usr_consume_bias, 0.1, self.cnt_users), 0, 1)
+        self.ls_consume_bias = tmp / np.sum(tmp)
+        tmp = np.clip(rng.normal(self.usr_create_bias, 0.01, self.cnt_users), 0, 1)
+        self.ls_create_bias = tmp / np.sum(tmp)
+
         self.ls_posts: [Post] = []
 
         # statistics
@@ -260,30 +272,60 @@ class Network:
         self.stats_biases = []
         self.stats_post_biases = []
 
-    @profile
+    # @profile
     def simulate_round(self):
         self.stats_user_bias_sum = 0.0
         # TODO: try to partition users for benchmark reasons
-        # simulate users
-        for user in self.ls_users:
-            # TODO: add switching subreddits
-            # 0: sleep
-            if user.touch_grass_bias > rng.random():
-                # TODO: reset tmp (doesn't exist yet)
-                pass
+        creators: np.ndarray = rng.choice(self.ls_users,
+                                          int(np.ceil(rng.normal(self.usr_create_bias * self.cnt_users))),
+                                          replace=False, p=self.ls_create_bias)
+        consumers: np.ndarray = rng.choice(self.ls_users,
+                                           int(np.ceil(rng.normal(self.usr_consume_bias * self.cnt_users))),
+                                           replace=False, p=self.ls_consume_bias)
 
-            # 1: create posts
-            elif user.creator_bias > rng.random():
-                post = user.create_post()
-                self.stats_post_bias_sum += linalg.norm(post.bias)
-                self.ls_posts.append(post)
-
-            # 2: consume posts
-            else:
-                user.consume_post()
-
-            # update statistics
+        for user in creators:
+            post = user.create_post()
+            self.stats_post_bias_sum += linalg.norm(post.bias)
+            self.ls_posts.append(post)
             self.stats_user_bias_sum += linalg.norm(user.bias)
+
+        for user in consumers:
+            user.consume_post()
+
+        # s = math.ceil(consumers.size / 4)
+
+        # with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        #     executor.map(users_consume, consumers)
+
+        # threads = []
+        # for i in range(4):
+        #     threads.append(threading.Thread(target=self.users_consume, args=(consumers[i * s: min((i + 1) * s, consumers.size)],)))
+        #     threads[i].start()
+
+        # for t in threads:
+        #     t.join()
+
+        # simulate users
+        # for user in self.ls_users:
+        #     # TODO: add switching subreddits
+        #     # 0: sleep
+        #     if user.touch_grass_bias > rng.random():
+        #         # TODO: reset tmp (doesn't exist yet)
+        #         pass
+        #
+        #     # 1: create posts
+        #     elif user.creator_bias > rng.random():
+        #         post = user.create_post()
+        #         self.stats_post_bias_sum += linalg.norm(post.bias)
+        #         self.ls_posts.append(post)
+        #
+        #     # 2: consume posts
+        #     else:
+        #         user.consume_post()
+
+        # update statistics
+        # for user in self.ls_users:
+        #    self.stats_user_bias_sum += linalg.norm(user.bias)
 
         for subreddit in self.ls_subreddits:
             # sort the hot lists
