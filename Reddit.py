@@ -248,7 +248,7 @@ class User:
 
         # Create local copy?
         self_reddits = self.subreddits
-
+        self_reddits = np.random.permutation(self_reddits)
         # Delete subreddits that we do not agree with anymore
         for sub in self_reddits:
             p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * (1 - np.linalg.norm(np.subtract(self.bias, sub.bias)))
@@ -260,10 +260,12 @@ class User:
         # Disgruntled users stay away for a while
         if cnt_sub == 0:
             if rng.random() < 0.97:
+                self.subreddits = self_reddits
                 return
 
         # Add new subreddits that the user agrees with
         array_dif = np.setdiff1d(all_subs, self_reddits)
+        array_dif = np.random.permutation(array_dif)
         for sub in array_dif:
             p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * np.linalg.norm(np.subtract(self.bias, sub.bias))
             if p < rng.random() * 0.05:
