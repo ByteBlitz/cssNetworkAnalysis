@@ -9,7 +9,7 @@ import numpy.linalg as linalg
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 20  # in per_round
+    rounds = 50  # in per_round
     per_round = 24
     round_times = []
 

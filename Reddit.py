@@ -20,6 +20,7 @@ import math
 import copy
 
 import Names
+import Helper
 import numpy as np
 import scipy as sp
 import numpy.linalg as linalg
@@ -42,7 +43,6 @@ def get_sqrt_n():
 def as_probability(val):
     """Keep numbers in [0,1] with this function. """
     return min(max(val, 0), 1)
-
 
 def most_successful(seq, cnt, metric, worst):
     """Can be used to find the [cnt] most successful items from [seq] concerning [metric]"""
@@ -147,7 +147,9 @@ class User:
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
-        self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        #self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        self.bias = Helper.getUserBias()
+        self.importance = Helper.getImportance()
         self.online_bias = as_probability(rng.normal(online_bias, 0.2))
         self.create_bias = as_probability(rng.normal(create_bias, 0.01))
 
@@ -202,12 +204,12 @@ class User:
     # @profile
     def new_bias(self, user_bias, post, influence):
         if self.agree(post.bias, 0.1 * get_sqrt_n()):
-            new_bias = np.clip(self.bias * 0.8 + post.bias * 0.2, 0, 1)
+            new_bias = Helper.getNewBias(user_bias, post, influence, True)
             post.success += linalg.norm((self.bias - new_bias))
             self.bias = new_bias
         elif self.disagree(post.bias, 0.1 * get_sqrt_n()):
             # FIXME
-            new_bias = np.clip(self.bias * 1.2 - post.bias * 0.2, 0, 1)
+            new_bias = Helper.getNewBias(user_bias, post, influence, False)
             post.success -= linalg.norm((self.bias - new_bias))
             self.bias = new_bias
 
@@ -239,7 +241,7 @@ class User:
             self.vote(post)
 
             # reweigh bias
-            self.new_bias(self.bias, post, 0.2)
+            self.new_bias(self.bias, post, self.importance)
 
     def switch_subreddit(self, all_subs: np.ndarray):
         # TODO
@@ -280,8 +282,8 @@ class User:
 class Network:
     def __init__(self):
         # quantities
-        self.cnt_subreddits = 30
-        self.cnt_users = 2000
+        self.cnt_subreddits = 120
+        self.cnt_users = 10000
 
         # subreddit properties
         self.sr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
