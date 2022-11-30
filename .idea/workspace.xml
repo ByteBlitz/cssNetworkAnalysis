@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/plots/pcm extremist start" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py.lprof" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py.lprof" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Helper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,9 +69,6 @@
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -229,6 +221,7 @@
       <workItem from="1669124170064" duration="13536000" />
       <workItem from="1669277482313" duration="8000" />
       <workItem from="1669648334462" duration="7037000" />
+      <workItem from="1669793937481" duration="400000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -349,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669195699523</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Merge">
+      <created>1669793978205</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1669793978205</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
