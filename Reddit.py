@@ -20,6 +20,7 @@ import math
 import copy
 
 import Names
+import Helper
 import numpy as np
 import scipy as sp
 import numpy.linalg as linalg
@@ -148,7 +149,9 @@ class User:
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
-        self.bias = np.clip(rng.normal(bias_list, 0.25), 0, 1)
+        #self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        self.bias = Helper.getUserBias()
+        self.importance = Helper.getImportance()
         self.online_bias = as_probability(rng.normal(online_bias, 0.2))
         self.create_bias = as_probability(rng.normal(create_bias, 0.01))
 
@@ -203,12 +206,12 @@ class User:
     # @profile
     def new_bias(self, user_bias, post, influence):
         if self.agree(post.bias, 0.1 * get_sqrt_n()):
-            new_bias = np.clip(self.bias * 0.8 + post.bias * 0.2, 0, 1)
+            new_bias = Helper.getNewBias(user_bias, post, influence, True)
             post.success += linalg.norm((self.bias - new_bias))
             self.bias = new_bias
         elif self.disagree(post.bias, 0.1 * get_sqrt_n()):
             # FIXME
-            new_bias = np.clip(self.bias * 1.2 - post.bias * 0.2, 0, 1)
+            new_bias = Helper.getNewBias(user_bias, post, influence, False)
             post.success -= linalg.norm((self.bias - new_bias))
             self.bias = new_bias
 
@@ -240,7 +243,7 @@ class User:
             self.vote(post)
 
             # reweigh bias
-            self.new_bias(self.bias, post, 0.2)
+            self.new_bias(self.bias, post, self.importance)
 
     # @profile
     def switch_subreddit(self, all_subs: np.ndarray):
@@ -250,7 +253,7 @@ class User:
 
         # Create local copy?
         self_reddits = self.subreddits
-
+        self_reddits = np.random.permutation(self_reddits)
         # Delete subreddits that we do not agree with anymore
         for sub in self_reddits:
             p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * (1 - np.linalg.norm(np.subtract(self.bias, sub.bias)))
@@ -262,10 +265,12 @@ class User:
         # Disgruntled users stay away for a while
         if cnt_sub == 0:
             if rng.random() < 0.97:
+                self.subreddits = self_reddits
                 return
 
         # Add new subreddits that the user agrees with
         array_dif = np.setdiff1d(all_subs, self_reddits)
+        array_dif = np.random.permutation(array_dif)
         for sub in array_dif:
             p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * np.linalg.norm(np.subtract(self.bias, sub.bias))
             if p < rng.random() * 0.05:
