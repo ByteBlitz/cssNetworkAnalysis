@@ -5,10 +5,14 @@ import numpy as np
 
 
 def user_bias_histogram(my_reddit, title):
-    for i in range(Reddit.get_n()):
-        plt.hist([u.bias[i] for u in my_reddit.ls_users])
-        plt.title(f"User Bias Histogram [{title}] of Bias [{i}]")
-        plt.show()
+    # for i in range(Reddit.get_n()):
+    #     plt.hist([u.bias[i] for u in my_reddit.ls_users])
+    #     plt.title(f"User Bias Histogram [{title}] of Bias [{i}]")
+    #     plt.show()
+
+    plt.hexbin([u.bias[0] for u in my_reddit.ls_users], [u.bias[1] for u in my_reddit.ls_users], bins='log')
+    plt.title(f"2d User Bias Distribution [{title}]")
+    plt.show()
 
     return
 
@@ -31,13 +35,28 @@ def users(my_reddit):
     plt.title("User Consumption")
     plt.show()
 
+    plt.hist([len(u.subreddits) for u in my_reddit.ls_users], log=True)
+    plt.title("User SR-Count")
+    plt.show()
+
     for i in range(Reddit.get_n()):
         plt.hexbin([u.bias[i] for u in my_reddit.ls_users], [np.sum(u.success) for u in my_reddit.ls_users],
                    norm=mcolors.LogNorm())
         plt.title(f"User Success/Bias {i}")
         plt.show()
 
+    plt.hexbin([u.bias[0] for u in my_reddit.ls_users], [u.bias[1] for u in my_reddit.ls_users], bins='log')
+    plt.title("2d User Bias Distribution [end]")
+    plt.show()
+
     return
+
+
+def subreddits(my_reddit, title):
+    plt.hist2d([s.bias[0] for s in my_reddit.ls_subreddits], [s.bias[1] for s in my_reddit.ls_subreddits],
+               range=[[0, 1], [0, 1]], bins=[100, 100])
+    plt.title(f"2d SR Bias Distribution [{title}]")
+    plt.show()
 
 
 def posts(my_reddit):

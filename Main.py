@@ -10,7 +10,7 @@ if __name__ == '__main__':
     # vars
     start_time = time.process_time()
     rounds = 20  # in per_round
-    per_round = 24
+    per_round = 12
     round_times = []
 
     # build
@@ -27,6 +27,7 @@ if __name__ == '__main__':
 
     # plots in the beginning
     Plot.user_bias_histogram(my_reddit, "start")
+    Plot.subreddits(my_reddit, "start")
 
     # simulate
     for i in range(rounds):
@@ -45,6 +46,7 @@ if __name__ == '__main__':
 
     # plot stuff
     Plot.users(my_reddit)
+    Plot.subreddits(my_reddit, "end")
     Plot.posts(my_reddit)
     Plot.performance(round_times)
 

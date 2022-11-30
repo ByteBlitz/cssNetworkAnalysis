@@ -131,7 +131,8 @@ class Subreddit:
 
     def update_bias(self):
         """Update the subreddit bias. Old values are weighted double. """
-        self.stat_bias.append((self.stat_bias[-1] * 2 + self.current_bias()) / 3)
+        self.bias = (self.stat_bias[-1] * 9 + self.current_bias()) / 10
+        self.stat_bias.append(self.bias)
 
     def __lt__(self, other):
         return self.id < other.id
@@ -147,7 +148,7 @@ class User:
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
-        self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        self.bias = np.clip(rng.normal(bias_list, 0.25), 0, 1)
         self.online_bias = as_probability(rng.normal(online_bias, 0.2))
         self.create_bias = as_probability(rng.normal(create_bias, 0.01))
 
@@ -241,6 +242,7 @@ class User:
             # reweigh bias
             self.new_bias(self.bias, post, 0.2)
 
+    # @profile
     def switch_subreddit(self, all_subs: np.ndarray):
         # TODO
         # Users should switch subreddits when they are dissatisfied
@@ -278,16 +280,16 @@ class User:
 class Network:
     def __init__(self):
         # quantities
-        self.cnt_subreddits = 30
+        self.cnt_subreddits = 100
         self.cnt_users = 2000
 
         # subreddit properties
-        self.sr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
+        self.sr_bias = np.array([0.5, 0.5])
         self.sr_tolerance = np.full(get_n(), 0.4, float)
 
         # user properties
         # FIXME:
-        self.usr_bias = np.array([0.2 + 0.6 / get_n() * i for i in range(get_n())])
+        self.usr_bias = np.array([0.5, 0.5])
         self.usr_online_bias = 0.60
         self.usr_create_bias = 0.03
         self.usr_subreddit_cap = 10
