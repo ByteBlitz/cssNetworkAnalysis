@@ -39,8 +39,10 @@ if __name__ == '__main__':
               f" {time.process_time() - round_timer} seconds")
 
         # plots after every round go here
+        Plot.plot_round(my_reddit)
         # Plot.user_bias_histogram(my_reddit, i)
 
+    Plot.save_gif()
     # finalize results
     my_reddit.finalize()
 
