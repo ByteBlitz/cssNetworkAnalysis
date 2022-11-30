@@ -423,7 +423,7 @@ class Network:
         self.stats_post_biases.append(self.stats_post_bias_sum / len(self.ls_posts)
                                       if not len(self.ls_posts) == 0 else 0.5)
 
-        self.moderation.intervene()
+        self.moderation.intervene_anarchistic()
         timestamp += 1
 
     def finalize(self):
