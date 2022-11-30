@@ -149,7 +149,7 @@ class User:
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
-        #self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
+        # self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
         self.bias = Helper.getUserBias()
         self.importance = Helper.getImportance()
         self.online_bias = as_probability(rng.normal(online_bias, 0.2))
@@ -282,6 +282,50 @@ class User:
         self.subreddits = self_reddits
 
 
+class Moderation:
+    def __init__(self, bias, zones, check_users, check_posts, check_accuracy, ls_users, ls_subreddits):
+        # goal
+        self.bias = bias  # np.array([0, 1])
+        self.zones = zones  # np.array([0.2, 0.35, 0.45]) * get_sqrt_n()
+
+        # power
+        self.check_users = check_users
+        self.check_posts = check_posts
+        self.check_accuracy = check_accuracy
+
+        # data
+        self.ls_users: np.ndarray = ls_users
+        self.ls_subreddits: np.ndarray = ls_subreddits
+
+    # helper methods
+    def distance(self, post: Post):
+        return 0.5
+
+    # interventions
+    def intervene_anarchistic(self):
+        pass
+
+    def intervene_frederick(self):
+        # scan new successful posts
+        posts = []
+
+        for post in posts:
+            if self.distance(post) < self.zones[0]:
+                # nice people
+                pass
+            elif self.distance(post) < self.zones[1]:
+                # not so nice people
+                pass
+            elif self.distance(post) < self.zones[2]:
+                # not nice people
+                pass
+            else:
+                # extremists
+                pass
+
+        # scan blacklisted users
+
+
 class Network:
     def __init__(self):
         # quantities
@@ -319,6 +363,11 @@ class Network:
         self.stats_user_bias_sum = 0.0
         self.stats_biases = []
         self.stats_post_biases = []
+
+        # build moderation
+        self.moderation: Moderation = Moderation(np.array([0, 1]), np.array([0.2, 0.35, 0.45]) * get_sqrt_n(),
+                                                 50, 200, 0.1 * get_sqrt_n(),
+                                                 self.ls_users, self.ls_subreddits)
 
     # @profile
     def simulate_round(self):
@@ -374,6 +423,7 @@ class Network:
         self.stats_post_biases.append(self.stats_post_bias_sum / len(self.ls_posts)
                                       if not len(self.ls_posts) == 0 else 0.5)
 
+        self.moderation.intervene()
         timestamp += 1
 
     def finalize(self):
