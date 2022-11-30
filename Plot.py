@@ -3,6 +3,54 @@ import matplotlib.colors as mcolors
 import Reddit
 import numpy as np
 
+# code by: https://towardsdatascience.com/basics-of-gifs-with-pythons-matplotlib-54dd544b6f30
+import os
+import imageio
+class gif:
+    def __init__(self, gifname):
+        self.gif_name = gifname
+        self.filenames = []
+        self.bg_color = '#ffffff'
+        self.imagenum = 0
+
+    def add_plot_to_gif(self):
+        # Function gets called after plot has been made and just saves it
+
+        filename = f'images/frame_{self.gif_name}_{self.imagenum}.png'
+        self.filenames.append(filename)
+        plt.savefig(filename, dpi=96, facecolor=self.bg_color)
+        
+        self.imagenum += 1
+
+    def create_gif(self):
+        # Build GIF
+        with imageio.get_writer(f'{self.gif_name}.gif', mode='I') as writer:
+            for filename in self.filenames:
+                image = imageio.imread(filename)
+                writer.append_data(image)
+            for _ in range(5):
+                image = imageio.imread(self.filenames[len(self.filenames) - 1])
+                writer.append_data(image)
+        # Remove files
+        for filename in set(self.filenames):
+            os.remove(filename)
+
+my_gif = gif('2dUser')
+other_gif = gif('2dSR')
+def plot_round(my_reddit : Reddit.Network):
+    plt.hist2d([u.bias[0] for u in my_reddit.ls_users], [u.bias[1] for u in my_reddit.ls_users], range=[[0, 1], [0, 1]], bins=[200, 200])
+    my_gif.add_plot_to_gif()
+    plt.close()
+
+    plt.hist2d([s.bias[0] for s in my_reddit.ls_subreddits], [s.bias[1] for s in my_reddit.ls_subreddits],
+               range=[[0, 1], [0, 1]], bins=[100, 100])
+    other_gif.add_plot_to_gif()
+    plt.close()
+
+def save_gif():
+    my_gif.create_gif()
+    other_gif.create_gif()
+
 
 def user_bias_histogram(my_reddit, title):
     # for i in range(Reddit.get_n()):
