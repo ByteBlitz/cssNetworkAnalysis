@@ -154,6 +154,7 @@ class User:
         self.importance = Helper.getImportance()
         self.online_bias = as_probability(rng.normal(online_bias, 0.2))
         self.create_bias = as_probability(rng.normal(create_bias, 0.01))
+        self.hot_bias = 0.7
 
         self.subreddits: list[Subreddit] = []
         self.usr_subreddit_cap = usr_subreddit_cap
@@ -228,22 +229,41 @@ class User:
 
     # @profile
     def consume_post(self):
-        # select subreddit
         # TODO: add option to stay on a subreddit
         subreddit = rng.choice(self.subreddits)
+        posts = []
+        if self.hot_bias > rng.random():
+            posts = subreddit.hot[max(-5, -len(subreddit.hot)): -1]
+        else:
+            posts = subreddit.new[max(-5, -len(subreddit.hot)): -1]
 
-        # take the first 5 posts from the subreddits "hot" queue
-        # TODO: select between hot/new also keep position in queue for continuous scrolling
-        for i in range(max(-5, -len(subreddit.hot)), -1):
-            post = subreddit.hot[i]
-
-            # interact
+        # get weighted bias confirmation
+        for post in posts:
+            # statistics
             self.viewed_posts += 1
             post.views += 1
-            self.vote(post)
 
-            # reweigh bias
-            self.new_bias(self.bias, post, self.importance)
+            # vote on posts
+            diff = linalg.norm((self.bias - post.bias))  # * self.importance)
+            if diff < 0.2 * get_sqrt_n():
+                post.ups += 1
+            elif diff > 0.8 * get_sqrt_n():
+                post.downs += 1
+
+            # adjust own bias
+            new_bias = self.bias
+            if diff < 0.1 * get_sqrt_n():
+                new_bias = np.clip(self.bias + 0.1 * (post.bias - self.bias), 0, 1)
+                post.success += abs(new_bias - self.bias)
+            elif diff > get_sqrt_n() * (1 - 0.1):
+                new_bias = np.clip(self.bias - 0.1 * (post.bias - self.bias), 0, 1)
+                post.success -= abs(new_bias - self.bias)
+
+            self.bias = new_bias
+
+        # get repetition bias
+        # if len(posts) > 0 and np.std([p.bias for p in posts]) < 0.2:
+        #     self.bias = np.clip(self.bias + 0.05 * (np.mean([p.bias for p in posts]) - self.bias), 0, 1)
 
     # @profile
     def switch_subreddit(self, all_subs: np.ndarray):
@@ -256,7 +276,7 @@ class User:
         self_reddits = np.random.permutation(self_reddits)
         # Delete subreddits that we do not agree with anymore
         for sub in self_reddits:
-            p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * (1 - np.linalg.norm(np.subtract(self.bias, sub.bias)))
+            p = np.clip((cnt_sub + 1) / (self.usr_subreddit_cap + 1) * (get_sqrt_n() - linalg.norm(self.bias - sub.bias)), 0, 1)
             if p > rng.random() * 0.1 + 0.9:
                 self_reddits = np.delete(self_reddits, np.argwhere(self_reddits == sub))
                 sub.users -= 1
@@ -329,7 +349,7 @@ class Moderation:
 class Network:
     def __init__(self):
         # quantities
-        self.cnt_subreddits = 100
+        self.cnt_subreddits = 200
         self.cnt_users = 2000
 
         # subreddit properties
@@ -341,7 +361,7 @@ class Network:
         self.usr_bias = np.array([0.5, 0.5])
         self.usr_online_bias = 0.60
         self.usr_create_bias = 0.03
-        self.usr_subreddit_cap = 10
+        self.usr_subreddit_cap = 3
 
         # ls_s
         self.ls_subreddits = np.array(
@@ -374,27 +394,10 @@ class Network:
         global timestamp
 
         self.stats_user_bias_sum = 0.0
-        # TODO: try to partition users for benchmark reasons
-        # creators: np.ndarray = rng.choice(self.ls_users,
-        #                                   int(np.ceil(rng.normal(self.usr_create_bias * self.cnt_users))),
-        #                                   replace=False, p=self.ls_create_bias)
-        # consumers: np.ndarray = rng.choice(self.ls_users,
-        #                                    int(np.ceil(rng.normal(self.usr_consume_bias * self.cnt_users))),
-        #                                    replace=False, p=self.ls_consume_bias)
-        #
-        # for user in creators:
-        #     post = user.create_post()
-        #     self.stats_post_bias_sum += linalg.norm(post.bias)
-        #     self.ls_posts.append(post)
-        #     self.stats_user_bias_sum += linalg.norm(user.bias)
-        #
-        # for user in consumers:
-        #     user.consume_post()
 
         # simulate users
         user: User
         for user in self.ls_users:
-            # TODO: add switching subreddits
             # 0: online?
             if user.online_bias > rng.random():
                 # TODO: reset tmp (doesn't exist yet)
@@ -402,9 +405,10 @@ class Network:
                     post = user.create_post()
                     self.stats_post_bias_sum += linalg.norm(post.bias)
                     self.ls_posts.append(post)
-                    user.switch_subreddit(self.ls_subreddits)
                 else:
                     user.consume_post()
+
+                user.switch_subreddit(self.ls_subreddits)
 
             # update statistics
             self.stats_user_bias_sum += linalg.norm(user.bias)

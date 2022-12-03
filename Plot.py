@@ -6,7 +6,9 @@ import numpy as np
 # code by: https://towardsdatascience.com/basics-of-gifs-with-pythons-matplotlib-54dd544b6f30
 import os
 import imageio
-class gif:
+
+
+class Gif:
     def __init__(self, gifname):
         self.gif_name = gifname
         self.filenames = []
@@ -19,7 +21,7 @@ class gif:
         filename = f'images/frame_{self.gif_name}_{self.imagenum}.png'
         self.filenames.append(filename)
         plt.savefig(filename, dpi=96, facecolor=self.bg_color)
-        
+
         self.imagenum += 1
 
     def create_gif(self):
@@ -35,10 +37,14 @@ class gif:
         for filename in set(self.filenames):
             os.remove(filename)
 
-my_gif = gif('2dUser')
-other_gif = gif('2dSR')
-def plot_round(my_reddit : Reddit.Network):
-    plt.hist2d([u.bias[0] for u in my_reddit.ls_users], [u.bias[1] for u in my_reddit.ls_users], range=[[0, 1], [0, 1]], bins=[200, 200])
+
+my_gif = Gif('2dUser')
+other_gif = Gif('2dSR')
+
+
+def plot_round(my_reddit: Reddit.Network):
+    plt.hist2d([u.bias[0] for u in my_reddit.ls_users], [u.bias[1] for u in my_reddit.ls_users], range=[[0, 1], [0, 1]],
+               bins=[200, 200])
     my_gif.add_plot_to_gif()
     plt.close()
 
@@ -46,6 +52,7 @@ def plot_round(my_reddit : Reddit.Network):
                range=[[0, 1], [0, 1]], bins=[100, 100])
     other_gif.add_plot_to_gif()
     plt.close()
+
 
 def save_gif():
     my_gif.create_gif()

@@ -10,7 +10,7 @@ if __name__ == '__main__':
     # vars
     start_time = time.process_time()
     rounds = 50  # in per_round
-    per_round = 24
+    per_round = 12
     round_times = []
 
     # build

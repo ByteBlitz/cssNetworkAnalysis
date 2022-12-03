@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/2dSR.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2dUser.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
+    </list>
+    <list id="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" name="Changes by momo" comment="">
       <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,6 +37,42 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Reddit.py">
+      <ranges>
+        <range start1="77" end1="77" start2="77" end2="79" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="156" end1="156" start2="158" end2="159" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="230" end1="231" start2="233" end2="233" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="233" end1="233" start2="235" end2="240" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="234" end1="240" start2="241" end2="244" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="242" end1="243" start2="246" end2="253" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="244" end1="246" start2="254" end2="268" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="258" end1="259" start2="280" end2="281" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="285" end1="286" start2="307" end2="308" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="287" end1="289" start2="309" end2="312" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="293" end1="294" start2="316" end2="316" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="298" end1="298" start2="320" end2="322" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="301" end1="302" start2="325" end2="340" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="304" end1="304" start2="342" end2="344" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="307" end1="308" start2="347" end2="349" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="309" end1="310" start2="350" end2="351" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="312" end1="312" start2="353" end2="354" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="317" end1="317" start2="359" end2="364" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="320" end1="320" start2="367" end2="373" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="323" end1="323" start2="376" end2="382" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="325" end1="326" start2="384" end2="385" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="330" end1="330" start2="389" end2="392" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="331" end1="332" start2="393" end2="394" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="343" end1="344" start2="405" end2="406" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="367" end1="370" start2="429" end2="432" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+        <range start1="376" end1="392" start2="438" end2="438" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="396" end1="397" start2="442" end2="442" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="404" end1="405" start2="449" end2="449" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="407" end1="407" start2="451" end2="453" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="425" end1="426" start2="471" end2="476" changelist="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" />
+      </ranges>
+    </file>
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="3zca7kn5" />
   </component>
@@ -51,11 +94,15 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/maxosterried/PycharmProjects/Reddit&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -177,8 +224,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Main" />
-        <item itemvalue="Python.Plot" />
         <item itemvalue="Python.Reddit" />
+        <item itemvalue="Python.Plot" />
         <item itemvalue="Python.Some_Extension" />
       </list>
     </recent_temporary>
@@ -223,7 +270,11 @@
       <workItem from="1669124170064" duration="13536000" />
       <workItem from="1669277482313" duration="8000" />
       <workItem from="1669648334462" duration="7037000" />
-      <workItem from="1669793937481" duration="4551000" />
+      <workItem from="1669793937481" duration="5424000" />
+      <workItem from="1670062410093" duration="17303000" />
+      <workItem from="1670087509895" duration="1212000" />
+      <workItem from="1670088729568" duration="406000" />
+      <workItem from="1670089141684" duration="598000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -358,7 +409,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669794367880</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added Moderation stumps">
+      <created>1669799117946</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1669799117946</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Bugfix">
+      <created>1669799237038</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1669799237038</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,9 +460,11 @@
     <MESSAGE value="Preparing Merge" />
     <MESSAGE value="Merge" />
     <MESSAGE value="Added more graphs about Subreddits" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added more graphs about Subreddits" />
+    <MESSAGE value="Added Moderation stumps" />
+    <MESSAGE value="Bugfix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bugfix" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1669191080518" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1670079736330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
