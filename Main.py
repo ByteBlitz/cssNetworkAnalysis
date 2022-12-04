@@ -9,7 +9,7 @@ import numpy.linalg as linalg
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 50  # in per_round
+    rounds = 25  # in per_round
     per_round = 6
     round_times = []
 
@@ -68,6 +68,17 @@ if __name__ == '__main__':
                                                 if linalg.norm(user.bias) > 1.6 or linalg.norm(user.bias) < 0.4
                                                 else -1000,
                                                 worst_user)
+
+    zones = [0, 0, 0, 0]
+    for user in my_reddit.ls_users:
+        if my_reddit.moderation.distance(user) < my_reddit.moderation.zones[0]:
+            zones[0] += 1
+        elif my_reddit.moderation.distance(user) < my_reddit.moderation.zones[1]:
+            zones[1] += 1
+        elif my_reddit.moderation.distance(user) < my_reddit.moderation.zones[2]:
+            zones[2] += 1
+        else:
+            zones[3] += 1
 
     # finish
     print(f"Simulation finished after {time.process_time() - start_time} seconds")

@@ -36,7 +36,7 @@ class Blacklist:
         self.data = []
         self.pointer = 0
 
-    def enqueue(self, e: object):
+    def append(self, e: object):
         if len(self.data) < self.capacity:
             self.data.append(e)
         else:

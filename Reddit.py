@@ -75,8 +75,9 @@ class Post:
         # TODO: come up with a better standard deviation
         self.ups = 1
         self.downs = 0
+
+        # moderation
         self.not_hot = False  # is set True if Moderator detects this post and avoids it getting into hot queue
-        self.forbidden = False  # is set to 1 if Moderator detects this post and deletes the post
 
         # statistics
         self.views = 1
@@ -95,7 +96,7 @@ class Post:
         order = math.log(max(abs(s), 1), 10)
         sign = 1 if s > 0 else 0 if s == 0 else -1
         hours = timestamp - self.creation
-        return round(sign * order + hours / 12, 7)
+        return 0 if self.not_hot else round(sign * order + hours / 12, 7)
 
     def get_hot(post):
         """Needed as a sorting criteria. """
@@ -111,7 +112,9 @@ class Subreddit:
         # properties
         self.id = id
         self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
-        # tolerance
+
+        # moderation
+        self.banned = False
 
         # statistics
         self.stat_bias = [np.clip(rng.normal(bias_list, 0.2), 0, 1)]
@@ -120,6 +123,12 @@ class Subreddit:
     def enqueue(self, post: Post):
         self.new.append(post)
         self.hot.append(post)
+
+    def get_hot(self):
+        return [] if self.banned else self.hot[max(-5, -len(self.hot)): -1]
+
+    def get_new(self):
+        return [] if self.banned else self.new[max(-5, -len(self.new)): -1]
 
     # @profile
     def current_bias(self):
@@ -152,12 +161,17 @@ class User:
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
+
         # self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
         self.bias = Helper.getUserBias()
         self.importance = Helper.getImportance()
         self.online_bias = as_probability(rng.normal(online_bias, 0.2))
         self.create_bias = as_probability(rng.normal(create_bias, 0.01))
         self.hot_bias = 0.7
+        self.last_post = None
+
+        # moderation
+        self.banned = 0
 
         # statistics
         self.viewed_posts: int = 0
@@ -184,6 +198,7 @@ class User:
     def create_post(self):
         self.created_posts += 1
         post = Post(self.id, self.bias)
+        self.last_post = post
 
         # select up to 3 subreddits to post on
         for subreddit in rng.choice(self.subreddits, rng.choice(min(3, len(self.subreddits)) + 1), replace=False):
@@ -194,27 +209,29 @@ class User:
     # @profile
     def consume_post(self, ls_subreddits):
         # be disgruntled if no subreddits are left
-        if len(self.subreddits) == 0 and rng.random() < 0.97:
-            return
+        # if len(self.subreddits) == 0 and rng.random() < 0.97:
+        #     return
 
         # maybe enter a new subreddit, introducing hard cap
-        if self.usr_subreddit_cap - len(self.subreddits) > 0 \
-                and (self.usr_subreddit_cap - len(self.subreddits)) / self.usr_subreddit_cap < rng.random() * 1.5:
-            other_srs = np.setdiff1d(ls_subreddits, self.subreddits)
-            probs = np.array([linalg.norm((self.bias - sr.bias) * self.importance) for sr in other_srs])
-            probs = probs / sum(probs)
-            new_sr = rng.choice(other_srs, p=probs)
+        # if self.usr_subreddit_cap - len(self.subreddits) > 0 \
+        #         and (self.usr_subreddit_cap - len(self.subreddits)) / self.usr_subreddit_cap < rng.random() * 1.5:
+        #     other_srs = np.setdiff1d(ls_subreddits, self.subreddits)
+        #     probs = np.array([linalg.norm((self.bias - sr.bias) * self.importance) ** (1/5) for sr in other_srs])
+        #     probs = probs / sum(probs)
+        #     new_sr = rng.choice(other_srs, p=probs)
 
-            np.append(self.subreddits, new_sr)
-            new_sr.users += 1
-            self.entered += 1
+        #     np.append(self.subreddits, new_sr)
+        #     new_sr.users += 1
+        #     self.entered += 1
+        if len(self.subreddits) == 0:
+            return
 
         subreddit = rng.choice(self.subreddits)
         posts = []
         if self.hot_bias > rng.random():
-            posts = subreddit.hot[max(-5, -len(subreddit.hot)): -1]
+            posts = subreddit.get_hot()
         else:
-            posts = subreddit.new[max(-5, -len(subreddit.hot)): -1]
+            posts = subreddit.get_new()
 
         if len(posts) == 0:
             return
@@ -226,7 +243,7 @@ class User:
             post.views += 1
 
             # vote on posts
-            diff = linalg.norm((self.bias - post.bias) * self.importance)
+            diff = linalg.norm((self.bias - post.bias))  # * self.importance)
 
             if diff < 0.2 * get_sqrt_n():
                 post.ups += 1
@@ -244,19 +261,19 @@ class User:
 
             self.bias = new_bias
 
-        biases = np.array([p.bias for p in posts])
-        weights = np.array([p.weight() for p in posts])
+        # biases = np.array([p.bias for p in posts])
+        # weights = np.array([p.weight() for p in posts])
 
         # get repetition bias
         # if np.std(biases) < 0.2:
         #     self.bias = np.clip(self.bias + 0.05 * (np.average(biases, axis=0, weights=weights) - self.bias), 0, 1)
 
         # maybe leave subreddits
-        if linalg.norm((np.average(biases, axis=0, weights=weights) - self.bias) * self.importance)\
-                * (len(self.subreddits) / self.usr_subreddit_cap) < rng.random() * 1.5:
-            np.delete(self.subreddits, np.where(self.subreddits == subreddit))
-            subreddit.users -= 1
-            self.left += 1
+        # if linalg.norm((np.average(biases, axis=0, weights=weights) - self.bias) * self.importance)\
+        #         * (len(self.subreddits) / self.usr_subreddit_cap) < rng.random() * 1.5:
+        #     np.delete(self.subreddits, np.where(self.subreddits == subreddit))
+        #     subreddit.users -= 1
+        #     self.left += 1
 
     # @profile
     def switch_subreddit(self, all_subs: np.ndarray):
@@ -312,8 +329,9 @@ class Moderation:
         # data
         self.ls_users: np.ndarray = ls_users
         self.ls_subreddits: np.ndarray = ls_subreddits
+        self.ls_susreddits: np.ndarray = np.zeros(len(ls_subreddits))
         self.ls_posts = ls_posts
-        self.blacklist = []  # users that are critical and detected are listed here
+        self.blacklist = Helper.Blacklist(check_users)  # users that are critical and detected are listed here
 
     # helper methods
     def distance(self, post: Post):
@@ -346,37 +364,32 @@ class Moderation:
 
         for post in posts:
             p = rng.random()
+            opponent: User = self.ls_users[post.creator]
+
             if self.distance(post) < self.zones[0]:
                 # nice people
                 pass
+
             elif self.distance(post) < self.zones[1]:
                 # not so nice people
-                self.soft(self, post)
+                self.soft(post)
                 if p < 0.1:  # probability of 0.1 -> user realises
                     # TODO User realises that he's watched and goes from state opinion away
                     pass
 
-                pass
             elif self.distance(post) < self.zones[2]:
                 # not nice people
-                self.soft(self, post)
-                self.middle(self, post)
-                if p < 0.25:  # again a probability of 0.25 -> user realises
-                    # TODO User realises that he's watched and goes from state opinion away
-                    pass
-
-                pass
+                self.soft(post)
+                self.middle(post)
+                if p < 0.2:  # again a probability of 0.2 -> user realises
+                    opponent.more_extreme(self.bias)
             else:
                 # extremists
-                self.soft(self, post)
-                self.middle(self, post)
-                self.hard(self, post)
-                if p < 0.1:  # again a probability of 0.333 -> user realises
-                    # TODO User realises that he's watched and goes from state opinion away
-                    pass
-                pass
-
-        # TODO scan blacklisted users (what do we do with blacklisted Subreddits?)
+                self.soft(post)
+                self.middle(post)
+                self.hard(post)
+                if p < 0.333:  # again a probability of 0.333 -> user realises
+                    opponent.more_extreme(self.bias)
 
 
 class Network:
@@ -385,8 +398,8 @@ class Network:
         self.moderation_type = True
 
         # quantities
-        self.cnt_subreddits = 100
-        self.cnt_users = 1000
+        self.cnt_subreddits = 200
+        self.cnt_users = 2000
 
         # subreddit properties
         self.sr_bias = np.array([0.5, 0.5])
@@ -397,7 +410,7 @@ class Network:
         self.usr_bias = np.array([0.5, 0.5])
         self.usr_online_bias = 0.60
         self.usr_create_bias = 0.03
-        self.usr_subreddit_cap = 12
+        self.usr_subreddit_cap = 3
 
         # ls_s
         self.ls_subreddits = np.array(
@@ -423,9 +436,8 @@ class Network:
         self.entered = 0
 
         # build moderation
-        # self.moderation: Moderation = Moderation(np.array([0.3, 0.5]), np.array([0.2, 0.35, 0.45]) * get_sqrt_n(),
-        #                                          50, 200, 0.1 * get_sqrt_n(),
-        #                                          self.ls_users, self.ls_subreddits, self.ls_posts)
+        self.moderation: Moderation = Moderation(np.array([0.5, 0.5]), np.array([0.2, 0.35, 0.45]) * get_sqrt_n(),
+                                                 50, 200, self.ls_users, self.ls_subreddits, self.ls_posts)
 
     # @profile
     def simulate_round(self):
@@ -436,6 +448,13 @@ class Network:
         # simulate users
         user: User
         for user in self.ls_users:
+            # update statistics
+            self.stats_user_bias_sum += linalg.norm(user.bias)
+
+            if user.banned > 0:
+                user.banned -= 1
+                continue
+
             # 0: online?
             if user.online_bias > rng.random():
                 # TODO: reset tmp (doesn't exist yet)
@@ -446,9 +465,7 @@ class Network:
                 else:
                     user.consume_post(self.ls_subreddits)
 
-            # user.switch_subreddit(self.ls_subreddits)
-            # update statistics
-            self.stats_user_bias_sum += linalg.norm(user.bias)
+            user.switch_subreddit(self.ls_subreddits)
 
         for subreddit in self.ls_subreddits:
             # sort the hot lists
@@ -464,10 +481,10 @@ class Network:
         self.stats_post_biases.append(self.stats_post_bias_sum / len(self.ls_posts)
                                       if not len(self.ls_posts) == 0 else 0.5)
 
-        # if(self.moderation_type):
-        #     self.moderation.intervene_anarchistic()
-        # else:
-        #     self.moderation.intervene_moderated()
+        if self.moderation_type:
+            self.moderation.intervene_anarchistic()
+        else:
+            self.moderation.intervene_moderated()
 
         timestamp += 1
 
