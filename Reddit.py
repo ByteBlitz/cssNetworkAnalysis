@@ -75,6 +75,8 @@ class Post:
         # TODO: come up with a better standard deviation
         self.ups = 1
         self.downs = 0
+        self.not_hot = False  # is set True if Moderator detects this post and avoids it getting into hot queue
+        self.forbidden = False  # is set to 1 if Moderator detects this post and deletes the post
 
         # statistics
         self.views = 1
@@ -292,7 +294,7 @@ class User:
         array_dif = np.setdiff1d(all_subs, self_reddits)
         array_dif = np.random.permutation(array_dif)
         for sub in array_dif:
-            p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * np.linalg.norm(np.subtract(self.bias, sub.bias))
+            p = (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * linalg.norm(self.bias - sub.bias)
             if p < rng.random() * 0.05:
                 self_reddits = np.append(self_reddits, sub)
                 sub.users += 1
@@ -303,54 +305,94 @@ class User:
 
 
 class Moderation:
-    def __init__(self, bias, zones, check_users, check_posts, check_accuracy, ls_users, ls_subreddits):
+    def __init__(self, bias, zones, check_users, check_posts, ls_users, ls_subreddits, ls_posts):
         # goal
-        self.bias = bias  # np.array([0, 1])
-        self.zones = zones  # np.array([0.2, 0.35, 0.45]) * get_sqrt_n()
+        self.bias = bias  # np.array([0.3, 0.5]), interesting if we vary this opinion
+        self.zones = zones  # np.array([0.2, 0.35, 0.45]) * get_sqrt_n(), this defines the borders of how Moderator reacts
+        # to opinions (depending on how far they are from the own Opinion
 
         # power
         self.check_users = check_users
         self.check_posts = check_posts
-        self.check_accuracy = check_accuracy
 
         # data
         self.ls_users: np.ndarray = ls_users
         self.ls_subreddits: np.ndarray = ls_subreddits
+        self.ls_posts = ls_posts
+        self.blacklist = []  # unsers that are critical and detected are listed here
 
     # helper methods
     def distance(self, post: Post):
-        return 0.5
+        return linalg.norm(self.bias - post.bias) * get_sqrt_n()
+
+    # penalties in interventions
+
+    def soft(self, post: Post):
+        post.not_hot = 1
+
+    def middle(self, post: Post):
+        opponent = self.ls_users(post.creator)  # person who sent it
+        self.blacklist.append(opponent)
+        # TODO: how does this not get too long
+
+    def hard(self, post: Post):
+        # TODO: User bannen + Subreddits untersuchen (?)
+        pass
 
     # interventions
+
+    # no intervention
     def intervene_anarchistic(self):
         pass
 
-    def intervene_frederick(self):
+    # state intervenes if opinion bias is too far from own opinion
+    def intervene_moderated(self):
         # scan new successful posts
-        posts = []
+        posts = rng.choice(self.ls_posts, self.check_posts, replace=False)
 
         for post in posts:
+            p = rng.random()
             if self.distance(post) < self.zones[0]:
                 # nice people
                 pass
             elif self.distance(post) < self.zones[1]:
                 # not so nice people
+                self.soft(self, post)
+                if p < 0.1:  # probability of 0.1 -> user realises
+                    # TODO User realises that he's watched and goes from state opinion away
+                    pass
+
                 pass
             elif self.distance(post) < self.zones[2]:
                 # not nice people
+                self.soft(self, post)
+                self.middle(self, post)
+                if p < 0.25:  # again a probability of 0.25 -> user realises
+                    # TODO User realises that he's watched and goes from state opinion away
+                    pass
+
                 pass
             else:
                 # extremists
+                self.soft(self, post)
+                self.middle(self, post)
+                self.hard(self, post)
+                if p < 0.1:  # again a probability of 0.333 -> user realises
+                    # TODO User realises that he's watched and goes from state opinion away
+                    pass
                 pass
 
-        # scan blacklisted users
+        # TODO scan blacklisted users (what do we do with blacklisted Subreddits?)
 
 
 class Network:
     def __init__(self):
+        # moderation type: True -> anarchy, False -> China
+        self.moderation_type = True
+
         # quantities
-        self.cnt_subreddits = 200
-        self.cnt_users = 2000
+        self.cnt_subreddits = 1000
+        self.cnt_users = 10000
 
         # subreddit properties
         self.sr_bias = np.array([0.5, 0.5])
@@ -385,9 +427,9 @@ class Network:
         self.stats_post_biases = []
 
         # build moderation
-        self.moderation: Moderation = Moderation(np.array([0, 1]), np.array([0.2, 0.35, 0.45]) * get_sqrt_n(),
-                                                 50, 200, 0.1 * get_sqrt_n(),
-                                                 self.ls_users, self.ls_subreddits)
+        # self.moderation: Moderation = Moderation(np.array([0.3, 0.5]), np.array([0.2, 0.35, 0.45]) * get_sqrt_n(),
+        #                                          50, 200, 0.1 * get_sqrt_n(),
+        #                                          self.ls_users, self.ls_subreddits, self.ls_posts)
 
     # @profile
     def simulate_round(self):
@@ -427,7 +469,11 @@ class Network:
         self.stats_post_biases.append(self.stats_post_bias_sum / len(self.ls_posts)
                                       if not len(self.ls_posts) == 0 else 0.5)
 
-        self.moderation.intervene_anarchistic()
+        # if(self.moderation_type):
+        #     self.moderation.intervene_anarchistic()
+        # else:
+        #     self.moderation.intervene_moderated()
+
         timestamp += 1
 
     def finalize(self):
