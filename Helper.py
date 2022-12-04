@@ -1,4 +1,5 @@
 import numpy as np
+import numpy.linalg as linalg
 
 # global vars
 timestamp: int = 0
@@ -8,7 +9,7 @@ rng = np.random.default_rng(seed=seed)
 
 def getImportance():
     imp = np.array([np.random.uniform(0.3, 5.0), np.random.uniform(1.0, 6.0)])
-    return imp / np.sum(imp)
+    return imp / linalg.norm(imp) * 1.44
 
 
 def getUserBias():
@@ -29,7 +30,7 @@ def getNewBias(user_bias, post, importance, agree):
     return np.clip(np.array([elem_one, elem_two]), 0, 1)
 
 
-class Memory:
+class Blacklist:
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.data = []
@@ -42,5 +43,5 @@ class Memory:
             self.data[self.pointer] = e
             self.pointer = (self.pointer + 1) % self.capacity
 
-    def std(self):
-        return np.std(p.bias for p in self.data)
+    def get(self):
+        return self.data

@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/5h_sr_end" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_bias0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_bias1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_bias_timeline" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_sr_start" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_success_score" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_user_end" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_user_sr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/5h_users_start" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dSR.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dSR.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dUser.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dUser.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py.lprof" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py.lprof" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
+    </list>
+    <list id="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" name="Changes by frederickwolff" comment="">
       <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
     </list>
     <list id="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" name="Changes by momo" comment="" />
@@ -33,6 +47,44 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Reddit.py">
+      <ranges>
+        <range start1="84" end1="85" start2="84" end2="84" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="87" end1="87" start2="86" end2="89" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="90" end1="91" start2="92" end2="93" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="120" end1="121" start2="122" end2="122" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="159" end1="164" start2="160" end2="160" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="169" end1="169" start2="165" end2="167" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="171" end1="171" start2="169" end2="170" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="176" end1="177" start2="175" end2="176" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="183" end1="220" start2="182" end2="182" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="232" end1="234" start2="194" end2="211" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="240" end1="240" start2="217" end2="220" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="248" end1="249" start2="228" end2="230" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="264" end1="264" start2="245" end2="248" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="266" end1="268" start2="250" end2="259" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="280" end1="281" start2="271" end2="273" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="285" end1="285" start2="277" end2="278" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="301" end1="301" start2="294" end2="295" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="304" end1="304" start2="298" end2="301" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="321" end1="322" start2="318" end2="319" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="330" end1="331" start2="327" end2="328" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="333" end1="334" start2="330" end2="332" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="340" end1="340" start2="338" end2="340" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="361" end1="362" start2="361" end2="363" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="370" end1="371" start2="371" end2="373" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="372" end1="373" start2="374" end2="374" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="380" end1="381" start2="381" end2="383" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="393" end1="395" start2="395" end2="397" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="405" end1="406" start2="407" end2="408" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="427" end1="427" start2="429" end2="431" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="450" end1="451" start2="454" end2="455" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="452" end1="454" start2="456" end2="457" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="481" end1="481" start2="484" end2="488" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+      </ranges>
+    </file>
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="3zca7kn5" />
   </component>
@@ -47,24 +99,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "/Users/maxosterried/PycharmProjects/Reddit",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
-    "settings.editor.selected.configurable": "debugger.dataViews.python.type.renderers",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/maxosterried/PycharmProjects/Reddit&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;debugger.dataViews.python.type.renderers&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -236,7 +288,8 @@
       <workItem from="1670088729568" duration="406000" />
       <workItem from="1670089141684" duration="1840000" />
       <workItem from="1670091099264" duration="1262000" />
-      <workItem from="1670115529527" duration="2597000" />
+      <workItem from="1670115529527" duration="8053000" />
+      <workItem from="1670167152131" duration="11759000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -392,7 +445,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670089755829</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Everything Works as of this point">
+      <created>1670155294379</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1670155294379</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,9 +492,10 @@
     <MESSAGE value="Added Moderation stumps" />
     <MESSAGE value="Bugfix" />
     <MESSAGE value="New Bias Function" />
-    <option name="LAST_COMMIT_MESSAGE" value="New Bias Function" />
+    <MESSAGE value="Everything Works as of this point" />
+    <option name="LAST_COMMIT_MESSAGE" value="Everything Works as of this point" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1670079736330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1670172724562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
