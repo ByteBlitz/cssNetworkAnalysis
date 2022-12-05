@@ -315,6 +315,9 @@ class User:
         # Apply changes
         self.subreddits = self_reddits
 
+    def more_extreme(self, state_bias):
+        self.bias = np.clip(self.bias - (state_bias - self.bias) * 0.05, 0, 1)
+
 
 class Moderation:
     def __init__(self, bias, zones, check_users, check_posts, ls_users, ls_subreddits, ls_posts):
@@ -341,18 +344,23 @@ class Moderation:
     # penalties in interventions
 
     def soft(self, post: Post):
-        post.not_hot = 1
+        post.not_hot = True
 
     def middle(self, post: Post):
-        opponent = self.ls_users(post.creator)  # person who sent it
+        opponent: User = self.ls_users[post.creator]  # person who sent it
         self.blacklist.append(opponent)
-        # TODO: how does this not get too long
 
     def hard(self, post: Post):
-        # TODO: User bannen + Subreddits untersuchen (?)
-        pass
+        opponent: User = self.ls_users[post.creator]  # person who sent it
+        opponent.banned = 24
+        for sr in opponent.subreddits:
+            sr: Subreddit
+            self.ls_susreddits[sr.id] += 1
+            sr.users -= 1
+            # if self.ls_susreddits[sr.id] > sr.users / 3 + 4:
+            #     sr.banned = True
 
-    # interventions
+        opponent.subreddits = np.empty(0)
 
     # no intervention
     def intervene_anarchistic(self):
@@ -361,7 +369,11 @@ class Moderation:
     # state intervenes if opinion bias is too far from own opinion
     def intervene_moderated(self):
         # scan new successful posts
-        posts = rng.choice(self.ls_posts, self.check_posts, replace=False)
+        posts = rng.choice(self.ls_posts, min(self.check_posts - len(self.blacklist.data), len(self.ls_posts)),
+                           replace=False).tolist()
+        for user in self.blacklist.get():
+            user: User
+            posts.append(user.last_post)
 
         for post in posts:
             p = rng.random()
@@ -375,8 +387,7 @@ class Moderation:
                 # not so nice people
                 self.soft(post)
                 if p < 0.1:  # probability of 0.1 -> user realises
-                    # TODO User realises that he's watched and goes from state opinion away
-                    pass
+                    opponent.more_extreme(self.bias)
 
             elif self.distance(post) < self.zones[2]:
                 # not nice people
