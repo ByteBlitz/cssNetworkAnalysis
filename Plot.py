@@ -26,13 +26,22 @@ class Gif:
 
     def create_gif(self):
         # Build GIF
+        frames = []
+
         with imageio.get_writer(f'images/{self.gif_name}.gif', mode='I') as writer:
             for filename in self.filenames:
                 image = imageio.imread(filename)
                 writer.append_data(image)
+                frames.append(image)
             for _ in range(5):
                 image = imageio.imread(self.filenames[len(self.filenames) - 1])
                 writer.append_data(image)
+                frames.append(image)
+        
+        exportname = f'images/{self.gif_name}_slow.gif'
+        kargs = { 'duration': 0.5 }
+        imageio.mimsave(exportname, frames, 'GIF', **kargs)
+
         # Remove files
         for filename in set(self.filenames):
             os.remove(filename)
