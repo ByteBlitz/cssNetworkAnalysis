@@ -223,6 +223,7 @@ class User:
         #     np.append(self.subreddits, new_sr)
         #     new_sr.users += 1
         #     self.entered += 1
+
         if len(self.subreddits) == 0:
             return
 
@@ -261,8 +262,8 @@ class User:
 
             self.bias = new_bias
 
-        # biases = np.array([p.bias for p in posts])
-        # weights = np.array([p.weight() for p in posts])
+        biases = np.array([p.bias for p in posts])
+        weights = np.array([p.weight() for p in posts])
 
         # get repetition bias
         # if np.std(biases) < 0.2:
@@ -335,7 +336,7 @@ class Moderation:
 
     # helper methods
     def distance(self, post: Post):
-        return linalg.norm(self.bias - post.bias) * get_sqrt_n()
+        return rng.normal(linalg.norm(self.bias - post.bias) * get_sqrt_n(), 0.05)
 
     # penalties in interventions
 
@@ -395,7 +396,7 @@ class Moderation:
 class Network:
     def __init__(self):
         # moderation type: True -> anarchy, False -> China
-        self.moderation_type = True
+        self.moderation_type = False
 
         # quantities
         self.cnt_subreddits = 200

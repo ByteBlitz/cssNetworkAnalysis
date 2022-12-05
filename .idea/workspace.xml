@@ -8,9 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dSR.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dSR.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dUser.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dUser.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py.lprof" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py.lprof" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
     </list>
     <list id="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" name="Changes by frederickwolff" comment="">
@@ -41,44 +39,18 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/Reddit.py">
       <ranges>
-        <range start1="77" end1="77" start2="77" end2="79" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="78" end1="79" start2="80" end2="80" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="97" end1="98" start2="98" end2="99" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="113" end1="114" start2="114" end2="117" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="122" end1="122" start2="125" end2="131" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="154" end1="154" start2="163" end2="164" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="160" end1="160" start2="170" end2="174" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="186" end1="186" start2="200" end2="201" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="196" end1="198" start2="211" end2="213" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="200" end1="206" start2="215" end2="221" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="207" end1="210" start2="222" end2="227" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="214" end1="215" start2="231" end2="232" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="216" end1="217" start2="233" end2="234" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="228" end1="229" start2="245" end2="246" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="246" end1="248" start2="263" end2="265" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="254" end1="259" start2="271" end2="276" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="298" end1="298" start2="315" end2="318" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="314" end1="314" start2="334" end2="335" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="315" end1="316" start2="336" end2="337" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="324" end1="325" start2="345" end2="346" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="327" end1="328" start2="348" end2="349" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="329" end1="330" start2="350" end2="350" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="332" end1="334" start2="352" end2="360" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="335" end1="336" start2="361" end2="362" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="344" end1="345" start2="370" end2="375" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="348" end1="348" start2="378" end2="380" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="351" end1="351" start2="383" end2="384" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="353" end1="354" start2="386" end2="387" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="355" end1="357" start2="388" end2="389" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="358" end1="359" start2="390" end2="390" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="361" end1="368" start2="392" end2="396" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="370" end1="379" start2="398" end2="403" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="387" end1="389" start2="411" end2="413" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="399" end1="400" start2="423" end2="424" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="425" end1="428" start2="449" end2="451" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="438" end1="438" start2="461" end2="468" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="448" end1="451" start2="478" end2="479" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="466" end1="470" start2="494" end2="498" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="225" end1="225" start2="225" end2="226" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="263" end1="265" start2="264" end2="266" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="315" end1="315" start2="316" end2="319" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="337" end1="338" start2="341" end2="342" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
+        <range start1="342" end1="343" start2="346" end2="347" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="345" end1="346" start2="349" end2="350" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="347" end1="348" start2="351" end2="351" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="350" end1="352" start2="353" end2="361" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="353" end1="354" start2="362" end2="363" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="362" end1="363" start2="371" end2="376" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="376" end1="378" start2="389" end2="390" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
+        <range start1="397" end1="398" start2="409" end2="410" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
       </ranges>
     </file>
   </component>
@@ -168,9 +140,6 @@
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -287,7 +256,7 @@
       <workItem from="1670091099264" duration="1262000" />
       <workItem from="1670115529527" duration="8053000" />
       <workItem from="1670167152131" duration="19707000" />
-      <workItem from="1670192508022" duration="4612000" />
+      <workItem from="1670192508022" duration="9375000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -457,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670178958164</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Works. Dont touch it">
+      <created>1670197171669</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1670197171669</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +475,8 @@
     <MESSAGE value="New Bias Function" />
     <MESSAGE value="Everything Works as of this point" />
     <MESSAGE value="No clue why my subreddit switch doesnt work" />
-    <option name="LAST_COMMIT_MESSAGE" value="No clue why my subreddit switch doesnt work" />
+    <MESSAGE value="Works. Dont touch it" />
+    <option name="LAST_COMMIT_MESSAGE" value="Works. Dont touch it" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1670172724562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
