@@ -26,7 +26,7 @@ class Gif:
 
     def create_gif(self):
         # Build GIF
-        with imageio.get_writer(f'{self.gif_name}.gif', mode='I') as writer:
+        with imageio.get_writer(f'images/{self.gif_name}.gif', mode='I') as writer:
             for filename in self.filenames:
                 image = imageio.imread(filename)
                 writer.append_data(image)
@@ -40,6 +40,8 @@ class Gif:
 
 my_gif = Gif('2dUser')
 other_gif = Gif('2dSR')
+subcount_gif = Gif('SubCount')
+usercount_gif = Gif('UserCount')
 
 
 def plot_round(my_reddit: Reddit.Network):
@@ -53,10 +55,22 @@ def plot_round(my_reddit: Reddit.Network):
     other_gif.add_plot_to_gif()
     plt.close()
 
+    plt.hist([u.users for u in my_reddit.ls_subreddits], log=True)
+    plt.title("Subreddit User-Count")
+    subcount_gif.add_plot_to_gif()
+    plt.close()
+
+    plt.hist([len(u.subreddits) for u in my_reddit.ls_users], log=True)
+    plt.title("User Subreddit-Count")
+    usercount_gif.add_plot_to_gif()
+    plt.close()
+
 
 def save_gif():
     my_gif.create_gif()
     other_gif.create_gif()
+    subcount_gif.create_gif()
+    usercount_gif.create_gif()
 
 
 def user_bias_histogram(my_reddit, title):
