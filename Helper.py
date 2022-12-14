@@ -28,20 +28,3 @@ def getNewBias(user_bias, post, importance, agree):
         elem_one = user_bias[0] * (1 + importance[0]) - importance[0] * post.bias[0]
         elem_two = user_bias[1] * (1 + importance[1]) - importance[1] * post.bias[1]
     return np.clip(np.array([elem_one, elem_two]), 0, 1)
-
-
-class Blacklist:
-    def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.data = []
-        self.pointer = 0
-
-    def append(self, e: object):
-        if len(self.data) < self.capacity:
-            self.data.append(e)
-        else:
-            self.data[self.pointer] = e
-            self.pointer = (self.pointer + 1) % self.capacity
-
-    def get(self):
-        return self.data

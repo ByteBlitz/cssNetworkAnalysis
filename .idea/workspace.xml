@@ -4,17 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
+    <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="Fixes">
+      <change afterPath="$PROJECT_DIR$/Moderation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Post.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Subreddit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/funcs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/2dSR.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/2dSR_slow.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/2dUser.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/2dUser_slow.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/SubCount.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/SubCount_slow.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/UserCount.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/UserCount_slow.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/params.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/presentation_end_sr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/presentation_end_user" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/presentation_success0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/presentation_success1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/start" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/unmoderated_bias" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/unmoderated_sr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/unmoderated_success1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plots/unmoderated_success_0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dSR.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dSR.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2dUser.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dUser.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Names.py" beforeDir="false" afterPath="$PROJECT_DIR$/Names.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
     </list>
-    <list id="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" name="Changes by frederickwolff" comment="">
-      <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
-    </list>
-    <list id="0709ed26-63b0-4b77-b86b-fcfbb6ae0a86" name="Changes by momo" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,29 +58,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/Reddit.py">
-      <ranges>
-        <range start1="225" end1="225" start2="225" end2="226" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="263" end1="265" start2="264" end2="266" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="315" end1="315" start2="316" end2="319" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="337" end1="338" start2="341" end2="342" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-        <range start1="342" end1="343" start2="346" end2="347" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="345" end1="346" start2="349" end2="350" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="347" end1="348" start2="351" end2="351" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="350" end1="352" start2="353" end2="361" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="353" end1="354" start2="362" end2="363" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="362" end1="363" start2="371" end2="376" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="376" end1="378" start2="389" end2="390" changelist="8f5fef0c-78d5-4dcb-9e48-2159b6c7bf2f" />
-        <range start1="397" end1="398" start2="409" end2="410" changelist="d439b053-567c-492e-8898-5ffbf1c304a8" />
-      </ranges>
-    </file>
-  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="3zca7kn5" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2GGYFhR67xYpYMiTXsdKfXFxTX5" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -140,6 +147,9 @@
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -256,7 +266,10 @@
       <workItem from="1670091099264" duration="1262000" />
       <workItem from="1670115529527" duration="8053000" />
       <workItem from="1670167152131" duration="19707000" />
-      <workItem from="1670192508022" duration="9375000" />
+      <workItem from="1670192508022" duration="20544000" />
+      <workItem from="1671031303417" duration="28000" />
+      <workItem from="1671031340446" duration="2059000" />
+      <workItem from="1671034749048" duration="6738000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -433,7 +446,28 @@
       <option name="project" value="LOCAL" />
       <updated>1670197171669</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixes">
+      <created>1670234447648</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1670234447648</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Changes by frederickwolff">
+      <created>1670236377105</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1670236377105</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Changes by momo">
+      <created>1670236401661</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1670236401661</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +487,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Initial Commit" />
     <MESSAGE value="Added Performance Evaluation" />
     <MESSAGE value="Performance increased to pseudolinear scaling. Added function &amp; field stumps for better statistics. Testrun with 4.3 mio nodes, took 10 minutes" />
     <MESSAGE value="Bug fixes, added fields for future amendments" />
@@ -476,7 +509,10 @@
     <MESSAGE value="Everything Works as of this point" />
     <MESSAGE value="No clue why my subreddit switch doesnt work" />
     <MESSAGE value="Works. Dont touch it" />
-    <option name="LAST_COMMIT_MESSAGE" value="Works. Dont touch it" />
+    <MESSAGE value="Fixes" />
+    <MESSAGE value="Changes by frederickwolff" />
+    <MESSAGE value="Changes by momo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by momo" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1670172724562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

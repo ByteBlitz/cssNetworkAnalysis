@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import Reddit
 import numpy as np
+import params as pms
 
 # code by: https://towardsdatascience.com/basics-of-gifs-with-pythons-matplotlib-54dd544b6f30
 import os
@@ -9,20 +10,20 @@ import imageio
 
 
 class Gif:
-    def __init__(self, gifname):
-        self.gif_name = gifname
+    def __init__(self, gif_name):
+        self.gif_name = gif_name
         self.filenames = []
         self.bg_color = '#ffffff'
-        self.imagenum = 0
+        self.image_num = 0
 
     def add_plot_to_gif(self):
         # Function gets called after plot has been made and just saves it
 
-        filename = f'images/frame_{self.gif_name}_{self.imagenum}.png'
+        filename = f'images/frame_{self.gif_name}_{self.image_num}.png'
         self.filenames.append(filename)
         plt.savefig(filename, dpi=96, facecolor=self.bg_color)
 
-        self.imagenum += 1
+        self.image_num += 1
 
     def create_gif(self):
         # Build GIF
@@ -38,9 +39,9 @@ class Gif:
                 writer.append_data(image)
                 frames.append(image)
         
-        exportname = f'images/{self.gif_name}_slow.gif'
-        kargs = { 'duration': 0.5 }
-        imageio.mimsave(exportname, frames, 'GIF', **kargs)
+        export_name = f'images/{self.gif_name}_slow.gif'
+        k_args = {'duration': 0.5}
+        imageio.mimsave(export_name, frames, 'GIF', **k_args)
 
         # Remove files
         for filename in set(self.filenames):
@@ -49,8 +50,8 @@ class Gif:
 
 my_gif = Gif('2dUser')
 other_gif = Gif('2dSR')
-subcount_gif = Gif('SubCount')
-usercount_gif = Gif('UserCount')
+sub_count_gif = Gif('SubCount')
+user_count_gif = Gif('UserCount')
 
 
 def plot_round(my_reddit: Reddit.Network):
@@ -66,20 +67,20 @@ def plot_round(my_reddit: Reddit.Network):
 
     plt.hist([u.users for u in my_reddit.ls_subreddits], log=True)
     plt.title("Subreddit User-Count")
-    subcount_gif.add_plot_to_gif()
+    sub_count_gif.add_plot_to_gif()
     plt.close()
 
     plt.hist([len(u.subreddits) for u in my_reddit.ls_users], log=True)
     plt.title("User Subreddit-Count")
-    usercount_gif.add_plot_to_gif()
+    user_count_gif.add_plot_to_gif()
     plt.close()
 
 
 def save_gif():
     my_gif.create_gif()
     other_gif.create_gif()
-    subcount_gif.create_gif()
-    usercount_gif.create_gif()
+    sub_count_gif.create_gif()
+    user_count_gif.create_gif()
 
 
 def user_bias_histogram(my_reddit, title):
@@ -100,7 +101,7 @@ def users(my_reddit):
     plt.title("Average User Bias")
     plt.show()
 
-    for i in range(Reddit.get_n()):
+    for i in range(pms.get_n()):
         plt.hist([u.bias[i] for u in my_reddit.ls_users], log=True)
         plt.title(f"Logged User Bias {i} Diagram")
         plt.show()
@@ -117,7 +118,7 @@ def users(my_reddit):
     plt.title("User SR-Count")
     plt.show()
 
-    for i in range(Reddit.get_n()):
+    for i in range(pms.get_n()):
         plt.hexbin([u.bias[i] for u in my_reddit.ls_users], [np.sum(u.success) for u in my_reddit.ls_users],
                    norm=mcolors.LogNorm())
         plt.title(f"User Success/Bias {i}")
@@ -150,7 +151,7 @@ def posts(my_reddit):
     plt.title("Post Score")
     plt.show()
 
-    for i in range(Reddit.get_n()):
+    for i in range(pms.get_n()):
         plt.hexbin([p.bias[i] for p in my_reddit.ls_posts], [p.score() for p in my_reddit.ls_posts],
                    norm=mcolors.LogNorm())
         plt.title(f"Post Score/Bias {i}")

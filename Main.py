@@ -4,13 +4,14 @@ import Reddit
 import Plot
 import numpy as np
 import numpy.linalg as linalg
-
+import params as pms
+import funcs as f
 
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 25  # in per_round
-    per_round = 12
+    rounds = 20  # in per_round
+    per_round = 6
     round_times = []
 
     # build
@@ -54,20 +55,20 @@ if __name__ == '__main__':
 
     # find most successful posts
     worst_post = copy.deepcopy(my_reddit.ls_posts[0])
-    worst_post.success = np.array([-1000 for _ in range(Reddit.get_n())])
-    ms_posts = Reddit.most_successful(my_reddit.ls_posts, 10, lambda post: np.sum(post.success), worst_post)
+    worst_post.success = np.array([-1000 for _ in range(pms.get_n())])
+    ms_posts = f.most_successful(my_reddit.ls_posts, 10, lambda p: np.sum(p.success), worst_post)
 
     # find most successful users
     worst_user = copy.deepcopy(my_reddit.ls_users[0])
-    worst_user.success = np.array([-1000 for _ in range(Reddit.get_n())])
-    ms_users = Reddit.most_successful(my_reddit.ls_users, 10, lambda user: np.sum(user.success), worst_user)
+    worst_user.success = np.array([-1000 for _ in range(pms.get_n())])
+    ms_users = f.most_successful(my_reddit.ls_users, 10, lambda u: np.sum(u.success), worst_user)
 
     # find most successful extremist users
-    ms_extremist_users = Reddit.most_successful(my_reddit.ls_users, 10,
-                                                lambda user: np.sum(user.success)
-                                                if linalg.norm(user.bias) > 1.6 or linalg.norm(user.bias) < 0.4
-                                                else -1000,
-                                                worst_user)
+    ms_extremist_users = f.most_successful(my_reddit.ls_users, 10,
+                                           lambda u: np.sum(u.success)
+                                           if linalg.norm(u.bias) > 1.6 or linalg.norm(u.bias) < 0.4
+                                           else -1000,
+                                           worst_user)
 
     zones = [0, 0, 0, 0]
     for user in my_reddit.ls_users:
