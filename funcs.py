@@ -1,9 +1,9 @@
 import copy
 
 
-def most_successful(seq, cnt, metric, worst):
+def most_successful(seq, cnt, metric):
     """Can be used to find the [cnt] most successful items from [seq] concerning [metric]"""
-    ms_list = [copy.deepcopy(worst)]
+    ms_list = [seq[0]]
     for item in seq:
         if metric(item) > metric(ms_list[0]):
             i = 0
@@ -20,3 +20,21 @@ def most_successful(seq, cnt, metric, worst):
 def as_probability(val):
     """Keep numbers in [0,1] with this function. """
     return min(max(val, 0), 1)
+
+
+class Watchlist:
+    """Circular queue implementation to keep track of suspicious Users. """
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.data = []
+        self.pointer = 0
+
+    def append(self, e: object):
+        if len(self.data) < self.capacity:
+            self.data.append(e)
+        else:
+            self.data[self.pointer] = e
+            self.pointer = (self.pointer + 1) % self.capacity
+
+    def get(self):
+        return self.data

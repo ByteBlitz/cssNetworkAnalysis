@@ -4,38 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="Fixes">
-      <change afterPath="$PROJECT_DIR$/Moderation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Post.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Subreddit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/funcs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/2dSR.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/2dSR_slow.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/2dUser.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/2dUser_slow.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/SubCount.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/SubCount_slow.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/UserCount.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/UserCount_slow.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/params.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/presentation_end_sr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/presentation_end_user" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/presentation_success0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/presentation_success1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/start" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/unmoderated_bias" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/unmoderated_sr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/unmoderated_success1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plots/unmoderated_success_0" afterDir="false" />
+    <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2dSR.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dSR.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2dUser.gif" beforeDir="false" afterPath="$PROJECT_DIR$/2dUser.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2dSR.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2dUser.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/5h_sr_end" beforeDir="false" afterPath="$PROJECT_DIR$/plots/5h_sr_end" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helper.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py.lprof" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py.lprof" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Moderation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Moderation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Names.py" beforeDir="false" afterPath="$PROJECT_DIR$/Names.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Post.py" beforeDir="false" afterPath="$PROJECT_DIR$/Post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Some_Extension.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Subreddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Subreddit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/User.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/2dSR.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/2dSR.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/2dSR_slow.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/2dSR_slow.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/2dUser.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/2dUser.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/2dUser_slow.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/2dUser_slow.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/SubCount.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/SubCount.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/SubCount_slow.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/SubCount_slow.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/UserCount.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/UserCount.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/UserCount_slow.gif" beforeDir="false" afterPath="$PROJECT_DIR$/images/UserCount_slow.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/params.py" beforeDir="false" afterPath="$PROJECT_DIR$/params.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +84,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;org.rust.cargo.project.model.PROJECT_DISCOVERY&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;CodeWithMe&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -187,6 +184,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Subreddit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Reddit" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Subreddit.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -212,6 +228,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.Subreddit" />
         <item itemvalue="Python.Reddit" />
         <item itemvalue="Python.Plot" />
         <item itemvalue="Python.Some_Extension" />
@@ -269,7 +286,9 @@
       <workItem from="1670192508022" duration="20544000" />
       <workItem from="1671031303417" duration="28000" />
       <workItem from="1671031340446" duration="2059000" />
-      <workItem from="1671034749048" duration="6738000" />
+      <workItem from="1671034749048" duration="8135000" />
+      <workItem from="1671097701663" duration="2898000" />
+      <workItem from="1671100684076" duration="13151000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -467,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670236401661</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Split the classes into files">
+      <created>1671059966701</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1671059966701</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,7 +513,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added Performance Evaluation" />
     <MESSAGE value="Performance increased to pseudolinear scaling. Added function &amp; field stumps for better statistics. Testrun with 4.3 mio nodes, took 10 minutes" />
     <MESSAGE value="Bug fixes, added fields for future amendments" />
     <MESSAGE value="Added the official Reddit ranking code and rewrote it to native python" />
@@ -512,9 +537,10 @@
     <MESSAGE value="Fixes" />
     <MESSAGE value="Changes by frederickwolff" />
     <MESSAGE value="Changes by momo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by momo" />
+    <MESSAGE value="Split the classes into files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Split the classes into files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1670172724562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1671095515424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

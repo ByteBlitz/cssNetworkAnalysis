@@ -1,21 +1,3 @@
-# Copyright Max Osterried, 2022
-# on Github: https://github.com/ByteBlitz/cssNetworkAnalysis
-# using the style guide at https://peps.python.org/pep-0008/
-# useful pages:
-# https://www.python-graph-gallery.com
-# https://matplotlib.org/stable/tutorials/introductory/pyplot.html
-#
-#
-# FIXME [assuming]:
-# Used for declaring implicit simplifications and assumptions, that might impact precision.
-#
-# TODO:
-# replace or reset users or make them change their opinion in downtime
-# implement china reddit
-# improve agreement function
-
-
-# imports
 import params as pms
 import numpy as np
 import numpy.linalg as linalg
@@ -25,102 +7,75 @@ import Subreddit
 import Moderation
 
 
+# Copyright Max Osterried, 2022
+# on Github: https://github.com/ByteBlitz/cssNetworkAnalysis
+
+
 class Network:
     def __init__(self):
-        # moderation type: True -> anarchy, False -> China
-        self.moderation_type = True
-
-        # quantities
-        self.cnt_subreddits = 100
-        self.cnt_users = 1000
-
-        # subreddit properties
-        self.sr_bias = np.array([0.5, 0.5])
-        self.sr_tolerance = np.full(pms.get_n(), 0.4, float)
-
-        # user properties
-        # FIXME:
-        self.usr_bias = np.array([0.5, 0.5])
-        self.usr_online_bias = 0.60
-        self.usr_create_bias = 0.03
-        self.usr_subreddit_cap = 3
-
-        # ls_s
-        self.ls_subreddits = np.array(
-            [Subreddit.Subreddit(self.sr_bias, i) for i in range(self.cnt_subreddits)])
-        self.ls_users = np.array(
-            [User.User(usr_id, self.usr_bias, self.usr_online_bias, self.usr_create_bias,
-                       self.ls_subreddits, self.usr_subreddit_cap)
-             for usr_id in range(self.cnt_users)])
-
-        # tmp = np.clip(rng.normal(self.usr_consume_bias, 0.1, self.cnt_users), 0, 1)
-        # self.ls_consume_bias = tmp / np.sum(tmp)
-        # tmp = np.clip(rng.normal(self.usr_create_bias, 0.01, self.cnt_users), 0, 1)
-        # self.ls_create_bias = tmp / np.sum(tmp)
-
+        # vertices and posts
+        self.ls_subreddits = np.array([Subreddit.Subreddit(i) for i in range(pms.SR_COUNT)])
+        self.ls_users = np.array([User.User(usr_id, self.ls_subreddits) for usr_id in range(pms.USR_COUNT)])
         self.ls_posts: list[Post] = []
 
+        # moderation
+        self.moderation: Moderation = Moderation.Moderation(self.ls_users, self.ls_subreddits, self.ls_posts)
+
         # statistics
-        self.stats_post_bias_sum = 0.0
-        self.stats_user_bias_sum = 0.0
+        self.stats_post_bias_sum = np.zeros(0)
+        self.stats_user_bias_sum = np.zeros(0)
         self.stats_biases = []
         self.stats_post_biases = []
         self.left = 0
         self.entered = 0
 
-        # build moderation
-        self.moderation: Moderation = Moderation.Moderation(np.array([0.5, 0.5]),
-                                                            np.array([0.2, 0.35, 0.45]) * pms.get_sqrt_n(),
-                                                            50, 200, self.ls_users, self.ls_subreddits, self.ls_posts)
-
     # @profile
     def simulate_round(self):
+        """Simulate one timestep, equivalent to one hour in the network. """
         self.stats_user_bias_sum = 0.0
 
-        # simulate users
+        # simulate Users
         user: User
         for user in self.ls_users:
             # update statistics
             self.stats_user_bias_sum += linalg.norm(user.bias)
 
+            # filter banned Users
             if user.banned > 0:
                 user.banned -= 1
                 continue
 
-            # 0: online?
+            # Will the User go online?
             if user.online_bias > pms.rng.random():
-                # TODO: reset tmp (doesn't exist yet)
+                # Will the User post something?
                 if user.create_bias > pms.rng.random():
                     post = user.create_post()
                     self.stats_post_bias_sum += linalg.norm(post.bias)
                     self.ls_posts.append(post)
+                # Else, the User will consume some Posts.
                 else:
                     user.consume_post(self.ls_subreddits)
 
-            user.switch_subreddit(self.ls_subreddits)
+                user.switch_subreddit(self.ls_subreddits)
 
+        # Simulate Subreddits. Calculate their bias.
         for subreddit in self.ls_subreddits:
-            # sort the hot lists
-            subreddit.hot.sort(key=Post.get_hot, reverse=False)
-            # cut the hot lists to be the first [50] elements
-            subreddit.hot = subreddit.hot[0:50]
-            # calculate and save the new subreddit bias
             new_bias = subreddit.current_bias()
             subreddit.stat_bias.append(new_bias)
             subreddit.bias = new_bias
 
-        self.stats_biases.append(self.stats_user_bias_sum / self.cnt_users)
+        # Simulate Moderation if wanted.
+        if pms.MODERATION:
+            self.moderation.intervene()
+
+        # statistics
+        self.stats_biases.append(self.stats_user_bias_sum / pms.USR_COUNT)
         self.stats_post_biases.append(self.stats_post_bias_sum / len(self.ls_posts)
                                       if not len(self.ls_posts) == 0 else 0.5)
-
-        if self.moderation_type:
-            self.moderation.intervene_anarchistic()
-        else:
-            self.moderation.intervene_moderated()
-
         pms.timestamp += 1
 
     def finalize(self):
+        """Adds up User success as well as Subreddit switching dynamics. """
         for post in self.ls_posts:
             self.ls_users[post.creator].success += post.success
 

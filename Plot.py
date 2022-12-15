@@ -17,8 +17,7 @@ class Gif:
         self.image_num = 0
 
     def add_plot_to_gif(self):
-        # Function gets called after plot has been made and just saves it
-
+        """Function gets called after plot has been made and just saves it. """
         filename = f'images/frame_{self.gif_name}_{self.image_num}.png'
         self.filenames.append(filename)
         plt.savefig(filename, dpi=96, facecolor=self.bg_color)
@@ -26,7 +25,7 @@ class Gif:
         self.image_num += 1
 
     def create_gif(self):
-        # Build GIF
+        """Builds gif from saved frames. """
         frames = []
 
         with imageio.get_writer(f'images/{self.gif_name}.gif', mode='I') as writer:
@@ -101,7 +100,7 @@ def users(my_reddit):
     plt.title("Average User Bias")
     plt.show()
 
-    for i in range(pms.get_n()):
+    for i in range(pms.N):
         plt.hist([u.bias[i] for u in my_reddit.ls_users], log=True)
         plt.title(f"Logged User Bias {i} Diagram")
         plt.show()
@@ -118,7 +117,7 @@ def users(my_reddit):
     plt.title("User SR-Count")
     plt.show()
 
-    for i in range(pms.get_n()):
+    for i in range(pms.N):
         plt.hexbin([u.bias[i] for u in my_reddit.ls_users], [np.sum(u.success) for u in my_reddit.ls_users],
                    norm=mcolors.LogNorm())
         plt.title(f"User Success/Bias {i}")
@@ -151,7 +150,7 @@ def posts(my_reddit):
     plt.title("Post Score")
     plt.show()
 
-    for i in range(pms.get_n()):
+    for i in range(pms.N):
         plt.hexbin([p.bias[i] for p in my_reddit.ls_posts], [p.score() for p in my_reddit.ls_posts],
                    norm=mcolors.LogNorm())
         plt.title(f"Post Score/Bias {i}")

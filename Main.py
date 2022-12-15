@@ -1,27 +1,24 @@
 import time
 import copy
-import Reddit
-import Plot
 import numpy as np
 import numpy.linalg as linalg
+import Reddit
+import Plot
 import params as pms
 import funcs as f
 
 if __name__ == '__main__':
     # vars
     start_time = time.process_time()
-    rounds = 20  # in per_round
-    per_round = 6
     round_times = []
 
     # build
     my_reddit = Reddit.Network()
     print(f"----------------------------------------\n"
           f"Simulating a Reddit-like Network with \n"
-          f"- {my_reddit.cnt_users} Users, \n"
-          f"- {my_reddit.cnt_subreddits} Subreddits and \n"
-          f"- a starting user bias of {my_reddit.usr_bias} \n"
-          f"for {rounds}x{per_round} time steps \n"
+          f"- {pms.USR_COUNT} Users and \n"
+          f"- {pms.SR_COUNT} Subreddits \n"
+          f"for {pms.ROUNDS}x{pms.PER_ROUND} time steps \n"
           f"---------------------------------------- \n")
 
     print(f"Data structures built in {time.process_time() - start_time} seconds")
@@ -31,19 +28,18 @@ if __name__ == '__main__':
     Plot.subreddits(my_reddit, "start")
 
     # simulate
-    for i in range(rounds):
+    for i in range(pms.ROUNDS):
         round_timer = time.process_time()
-        for _ in range(per_round):
+        for _ in range(pms.PER_ROUND):
             my_reddit.simulate_round()
-        round_times.append(per_round / (time.process_time() - round_timer))
-        print(f"{i + 1} of {rounds} rounds simulated in"
+        round_times.append(pms.PER_ROUND / (time.process_time() - round_timer))
+        print(f"{i + 1} of {pms.ROUNDS} rounds simulated in"
               f" {time.process_time() - round_timer} seconds")
 
         # plots after every round go here
         Plot.plot_round(my_reddit)
         # Plot.user_bias_histogram(my_reddit, i)
 
-    Plot.save_gif()
     # finalize results
     my_reddit.finalize()
 
@@ -52,24 +48,25 @@ if __name__ == '__main__':
     Plot.subreddits(my_reddit, "end")
     Plot.posts(my_reddit)
     Plot.performance(round_times)
+    Plot.save_gif()
 
     # find most successful posts
     worst_post = copy.deepcopy(my_reddit.ls_posts[0])
-    worst_post.success = np.array([-1000 for _ in range(pms.get_n())])
-    ms_posts = f.most_successful(my_reddit.ls_posts, 10, lambda p: np.sum(p.success), worst_post)
+    worst_post.success = np.array([-1000 for _ in range(pms.N)])
+    ms_posts = f.most_successful(my_reddit.ls_posts, 10, lambda p: np.sum(p.success))
 
     # find most successful users
     worst_user = copy.deepcopy(my_reddit.ls_users[0])
-    worst_user.success = np.array([-1000 for _ in range(pms.get_n())])
-    ms_users = f.most_successful(my_reddit.ls_users, 10, lambda u: np.sum(u.success), worst_user)
+    worst_user.success = np.array([-1000 for _ in range(pms.N)])
+    ms_users = f.most_successful(my_reddit.ls_users, 10, lambda u: np.sum(u.success))
 
     # find most successful extremist users
     ms_extremist_users = f.most_successful(my_reddit.ls_users, 10,
                                            lambda u: np.sum(u.success)
                                            if linalg.norm(u.bias) > 1.6 or linalg.norm(u.bias) < 0.4
-                                           else -1000,
-                                           worst_user)
+                                           else -1000)
 
+    # See, how many users are in each zone.
     zones = [0, 0, 0, 0]
     for user in my_reddit.ls_users:
         if my_reddit.moderation.distance(user) < my_reddit.moderation.zones[0]:

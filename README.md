@@ -1,17 +1,14 @@
 # NetworkAnalysis
 
-A Python project modelling the resilience of Reddit against the spread of fake news with ABM.
+A project, aiming to assess the impact of different kinds of moderation to a reddit-like network. 
 
-More detailed description will follow
 
-## Code To-Do List
-
-## Ideation 101
+## To-Do List
 
 - do a full description in README
-- discuss how we will introduce moderators
-- Reddit first! Other social media platforms only after proof of concept!
-
-
-
-
+- clean up code
+- integrate `switch_subreddits()` into `simulate_round()`
+- speed up the program using rust
+- build a second moderation
+- assess the outcomes and forward them to Yuri
+- comment code

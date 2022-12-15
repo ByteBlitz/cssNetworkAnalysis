@@ -6,6 +6,5 @@ surnames = np.array(["Mueller", "Maier", "Schmidt", "Doe"])
 
 
 def generateName():
-    name = pms.rng.choice(names)
-    surname = pms.rng.choice(surnames)
-    return name + " " + surname
+    """Generates a random name to identify a user. """
+    return "".join([pms.rng.choice(names), " ", pms.rng.choice(surnames)])

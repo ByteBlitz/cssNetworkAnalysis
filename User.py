@@ -1,45 +1,43 @@
 import numpy as np
 import numpy.linalg as linalg
 import Names
-import Helper  # TODO: get rid of this
-import params as pms
-import funcs as f
 import Post
+import params as pms
 
 
 class User:
-    def __init__(self, usr_id: int, bias_list: np.array, online_bias: float, create_bias: float,
-                 ls_subreddits: np.array, usr_subreddit_cap: int):
+    """Vertex actor that can create and consume posts and change its position in the graph as well as in the
+    opinion-space. """
+    def __init__(self, usr_id: int, ls_subreddits: np.array):
         # properties
         self.id: int = usr_id
         self.name: str = Names.generateName()
 
-        # self.bias = np.clip(rng.normal(bias_list, 0.2), 0, 1)
-        self.bias = Helper.getUserBias()
-        self.importance = Helper.getImportance()
-        self.online_bias = f.as_probability(pms.rng.normal(online_bias, 0.2))
-        self.create_bias = f.as_probability(pms.rng.normal(create_bias, 0.01))
-        self.hot_bias = 0.7
-        self.last_post = None
+        self.bias = pms.make_user_bias()
+        self.importance = pms.make_importance()
+        self.online_bias = pms.make_online_bias()
+        self.create_bias = pms.make_create_bias()
+        self.hot_bias = pms.USR_HOT_BIAS
 
         # moderation
+        self.last_post = None
         self.banned = 0
 
         # statistics
         self.viewed_posts: int = 0
         self.created_posts: int = 0
-        self.success = np.full(pms.get_n(), 0.0, float)
+        self.success = np.full(pms.N, 0.0, float)
         self.left = 0
         self.entered = 0
 
         # get subreddits
-        self.usr_subreddit_cap = usr_subreddit_cap
+        self.usr_subreddit_cap = pms.USR_SUBREDDIT_CAP
         probs = [1 / max(linalg.norm(sr.bias - self.bias), 0.001) for sr in ls_subreddits]
         s = sum(probs)
         probs = [p / s for p in probs]
 
         self.subreddits = pms.rng.choice(ls_subreddits,
-                                         pms.rng.choice(range(1, min(len(ls_subreddits), usr_subreddit_cap) + 1)),
+                                         pms.rng.choice(range(1, min(len(ls_subreddits), self.usr_subreddit_cap) + 1)),
                                          replace=False,
                                          p=probs)
 
@@ -48,23 +46,19 @@ class User:
 
     # @profile
     def create_post(self):
+        """Create Post, hand it to a Subreddit and return it to the caller. """
         self.created_posts += 1
-        post = Post.Post(self.id, self.bias)
-        self.last_post = post
+        self.last_post = Post.Post(self.id, self.bias)
 
-        # select up to 3 subreddits to post on
-        for subreddit in pms.rng.choice(self.subreddits, pms.rng.choice(min(3, len(self.subreddits)) + 1),
-                                        replace=False):
-            subreddit.enqueue(post)
+        # Select a Subreddit to post on.
+        for subreddit in pms.rng.choice(self.subreddits, 1, replace=False):
+            subreddit.enqueue(self.last_post)
 
-        return post
+        return self.last_post
 
     # @profile
     def consume_post(self, ls_subreddits):
-        # be disgruntled if no subreddits are left
-        # if len(self.subreddits) == 0 and rng.random() < 0.97:
-        #     return
-
+        """Lets a User consume a post and change their bias based on it. """
         # maybe enter a new subreddit, introducing hard cap
         # if self.usr_subreddit_cap - len(self.subreddits) > 0 \
         #         and (self.usr_subreddit_cap - len(self.subreddits)) / self.usr_subreddit_cap < rng.random() * 1.5:
@@ -96,21 +90,20 @@ class User:
             self.viewed_posts += 1
             post.views += 1
 
-            # vote on posts
-
             diff = linalg.norm((self.bias - post.bias) * self.importance)
 
-            if diff < 0.2 * pms.get_sqrt_n():
+            # vote on posts
+            if diff < 0.2 * pms.SQRT_N:
                 post.ups += 1
-            elif diff > 0.8 * pms.get_sqrt_n():
+            elif diff > 0.8 * pms.SQRT_N:
                 post.downs += 1
 
             # adjust own bias
             new_bias = self.bias
-            if diff < 0.1 * pms.get_sqrt_n():
+            if diff < 0.1 * pms.SQRT_N:
                 new_bias = np.clip(self.bias + 0.1 * (post.bias - self.bias), 0, 1)
                 post.success += abs(new_bias - self.bias)
-            elif diff > pms.get_sqrt_n() * (1 - 0.1):
+            elif diff > pms.SQRT_N * (1 - 0.1):
                 new_bias = np.clip(self.bias - 0.1 * (post.bias - self.bias), 0, 1)
                 post.success -= abs(new_bias - self.bias)
 
@@ -132,8 +125,7 @@ class User:
 
     # @profile
     def switch_subreddit(self, all_subs: np.ndarray):
-        # TODO
-        # Users should switch subreddits when they are dissatisfied
+        """Makes a User reevaluate their Subreddit choices. """
         cnt_sub = len(self.subreddits)
 
         # Create local copy?
@@ -142,7 +134,7 @@ class User:
         # Delete subreddits that we do not agree with anymore
         for sub in self_reddits:
             p = np.clip(
-                (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * (pms.get_sqrt_n() - linalg.norm(self.bias - sub.bias)),
+                (cnt_sub + 1) / (self.usr_subreddit_cap + 1) * (pms.SQRT_N - linalg.norm(self.bias - sub.bias)),
                 0, 1)
             if p > pms.rng.random() * 0.1 + 0.9:
                 self_reddits = np.delete(self_reddits, np.argwhere(self_reddits == sub))
@@ -171,4 +163,5 @@ class User:
         self.subreddits = self_reddits
 
     def more_extreme(self, state_bias):
+        """Users distance themselves from the Moderation's opinion, when they notice being punished. """
         self.bias = np.clip(self.bias - (state_bias - self.bias) * 0.05, 0, 1)
