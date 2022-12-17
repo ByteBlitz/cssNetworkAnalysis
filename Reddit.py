@@ -54,15 +54,13 @@ class Network:
                     self.ls_posts.append(post)
                 # Else, the User will consume some Posts.
                 else:
-                    user.consume_post(self.ls_subreddits)
+                    user.consume_post()
 
-                user.switch_subreddit(self.ls_subreddits)
+                user.switch_subreddit()
 
         # Simulate Subreddits. Calculate their bias.
         for subreddit in self.ls_subreddits:
-            new_bias = subreddit.current_bias()
-            subreddit.stat_bias.append(new_bias)
-            subreddit.bias = new_bias
+            subreddit.update_bias()
 
         # Simulate Moderation if wanted.
         if pms.MODERATION:

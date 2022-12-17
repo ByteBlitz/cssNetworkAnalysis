@@ -9,6 +9,10 @@
       <excludeFolder url="file://$MODULE_DIR$/speedup/target" />
       <excludeFolder url="file://$MODULE_DIR$/speedup/pyproject/target" />
       <excludeFolder url="file://$MODULE_DIR$/speedup/target" />
+      <excludeFolder url="file://$MODULE_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/plots" />
+      <excludeFolder url="file://$MODULE_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/plots" />
+      <excludeFolder url="file://$MODULE_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/plots" />
+      <excludeFolder url="file://$MODULE_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/plots" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,7 +1,7 @@
 import time
-import copy
 import numpy as np
 import numpy.linalg as linalg
+import dill
 import Reddit
 import Plot
 import params as pms
@@ -51,13 +51,9 @@ if __name__ == '__main__':
     Plot.save_gif()
 
     # find most successful posts
-    worst_post = copy.deepcopy(my_reddit.ls_posts[0])
-    worst_post.success = np.array([-1000 for _ in range(pms.N)])
     ms_posts = f.most_successful(my_reddit.ls_posts, 10, lambda p: np.sum(p.success))
 
     # find most successful users
-    worst_user = copy.deepcopy(my_reddit.ls_users[0])
-    worst_user.success = np.array([-1000 for _ in range(pms.N)])
     ms_users = f.most_successful(my_reddit.ls_users, 10, lambda u: np.sum(u.success))
 
     # find most successful extremist users
@@ -77,6 +73,22 @@ if __name__ == '__main__':
             zones[2] += 1
         else:
             zones[3] += 1
+
+    # save data structures
+    my_data = [
+        pms,
+        my_reddit,
+        ms_users,
+        ms_extremist_users,
+        ms_posts,
+        zones
+    ]
+    with open(f"results/{pms.ID}/data.pkl", 'wb') as file:
+        dill.dump(my_data, file)
+
+    # use following lines to reimport a saved state
+    # with open(f"results/{pms.ID}/data.pkl", 'rb') as file:
+    #     my_data = dill.load(file)
 
     # finish
     print(f"Simulation finished after {time.process_time() - start_time} seconds")

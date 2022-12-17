@@ -14,6 +14,7 @@ class Moderation:
         # power
         self.scan_users = pms.MOD_SCAN_USERS
         self.scan_posts = pms.MOD_SCAN_POSTS
+        self.fault = 1 / pms.MOD_ACCURACY
 
         # data
         self.ls_posts = ls_posts
@@ -29,7 +30,7 @@ class Moderation:
     # helper methods
     def distance(self, post: Post.Post):
         """Returns a slightly distorted estimate for the distance between the biases of a Post and the Moderation. """
-        return pms.rng.normal(linalg.norm(self.bias - post.bias) * pms.SQRT_N, 0.05)
+        return pms.rng.normal(linalg.norm(self.bias - post.bias) * pms.SQRT_N, self.fault)
 
     # penalties in interventions
 

@@ -32,6 +32,8 @@ class Subreddit:
         self.hot = self.hot[0:15] + self.get_new()
 
     def enqueue(self, post: Post):
+        """Posts a Post on the subreddit. Puts it into the hot-queue and the new-stack
+        and sorts the hot queue if necessary. """
         self.new.append(post)
         self.hot.append(post)
 
@@ -61,7 +63,7 @@ class Subreddit:
 
     def update_bias(self):
         """Update the subreddit bias. Old values are weighted more to account for some kind of memory. """
-        self.bias = (self.stat_bias[-1] * 9 + self.current_bias()) / 10
+        self.bias = np.clip(pms.rng.normal((self.stat_bias[-1] * 9999 + self.current_bias()) / 10000, 0.01), 0, 1)
         self.stat_bias.append(self.bias)
 
     def __lt__(self, other):
