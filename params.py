@@ -56,11 +56,11 @@ def make_create_bias():
 # moderation
 MODERATION = True
 MOD_BIAS = np.array([0.5, 0.5])
-MOD_ZONES = np.array([0.2, 0.35, 0.45]) * SQRT_N
+MOD_ZONES = np.array([0.6, 0.7, 0.8]) * SQRT_N
 
-MOD_SCAN_POSTS = 200
+MOD_SCAN_POSTS = 150
 MOD_SCAN_USERS = min(int(USR_COUNT * 0.05), MOD_SCAN_POSTS)
-MOD_ACCURACY = 30
+MOD_ACCURACY = 100
 
 # identification
 ID = "_".join([NAME, datetime.now().strftime("[%Y:%m:%d %H:%M:%S]"),

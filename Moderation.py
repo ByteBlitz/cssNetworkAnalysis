@@ -62,6 +62,10 @@ class Moderation:
 
         # Check the posts for their message. Punish if necessary.
         for post in posts:
+            if self.ls_users[post.creator].banned:
+                # Skip user if already banned
+                continue
+
             if self.distance(post) < self.zones[0]:
                 # Close to moderation's opinion, no action taken.
                 pass

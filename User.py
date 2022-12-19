@@ -46,6 +46,10 @@ class User:
         for subreddit in self.subreddits:
             subreddit.users += 1
 
+    def touch_grass(self):
+        """Spend a day offline and change your opinion in real human contact. """
+        self.bias = np.clip(pms.rng.normal(self.bias, 0.01), 0, 1)
+
     def edge_dist(self):
         """Get the distance to the closest edge in every variable.
         Useful to prevent users from taking extremely radical positions too easily. """
@@ -127,7 +131,8 @@ class User:
                 new_bias = np.clip(self.bias + 0.5 * bias_diff, 0, 1)
                 post.success += abs(new_bias - self.bias)
             elif w_diff > pms.SQRT_N * 0.9:
-                new_bias = np.clip(self.bias - 0.01 * self.edge_dist() * bias_diff / max(linalg.norm(bias_diff), 0.01), 0, 1)
+                new_bias = np.clip(self.bias - 0.01 * self.edge_dist() * bias_diff / max(linalg.norm(bias_diff), 0.01),
+                                   0, 1)
                 post.success -= abs(new_bias - self.bias)
 
             self.bias = new_bias
@@ -145,7 +150,7 @@ class User:
         # Repetition Bias. Deactivated for simplicity.
         # get repetition bias
         # if np.std(biases) < 0.2:
-        #     self.bias = np.clip(self.bias + 0.05 * (np.average(biases, axis=0, weights=weights) - self.bias), 0, 1)
+        #     self.bias = np.clip(self.bias + 0.01 * (np.average(biases, axis=0, weights=weights) - self.bias), 0, 1)
 
     # @profile
     def switch_subreddit(self):
@@ -165,4 +170,4 @@ class User:
         """Users distance themselves from the Moderation's opinion by at most 0.02, when they notice being punished. """
         self.bias = np.clip(
             self.bias - (state_bias - self.bias) / max(linalg.norm(state_bias - self.bias), 0.01)
-            * self.edge_dist() * 0.1, 0, 1)
+            * self.edge_dist() * 0.02, 0, 1)
