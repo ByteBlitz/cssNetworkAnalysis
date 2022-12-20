@@ -1,6 +1,3 @@
-import copy
-
-
 def most_successful(seq, cnt, metric):
     """Can be used to find the [cnt] most successful items from [seq] concerning [metric]"""
     ms_list = [seq[0]]

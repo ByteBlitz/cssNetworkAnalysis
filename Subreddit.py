@@ -5,6 +5,7 @@ import Post
 
 class Subreddit:
     """A subreddit class featuring a hot-(priority)-queue and a new-stack. """
+
     def __init__(self, sr_id):
         # post queues
         self.hot = []
@@ -15,7 +16,7 @@ class Subreddit:
         self.bias = np.clip(pms.rng.normal(pms.SR_BIAS, 0.2), 0, 1)
 
         # moderation
-        # We removed the ban option for subreddits because usually the same people will quickly find together on a
+        # We removed the ban option for Subreddits because usually the same people will quickly find together on a
         # new but similar subreddit anyway.
 
         # statistics
@@ -61,6 +62,7 @@ class Subreddit:
 
         return num / den if not den == 0 else np.full(pms.N, 0.5, float)
 
+    # @profile
     def update_bias(self):
         """Update the subreddit bias. Old values are weighted more to account for some kind of memory. """
         self.bias = np.clip(pms.rng.normal((self.stat_bias[-1] * 9999 + self.current_bias()) / 10000, 0.01), 0, 1)

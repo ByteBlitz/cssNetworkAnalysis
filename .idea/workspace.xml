@@ -5,51 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d439b053-567c-492e-8898-5ffbf1c304a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Reddit.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Reddit.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py.lprof" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py.lprof" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Moderation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Moderation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reddit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Subreddit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Subreddit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/User.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/params.py" beforeDir="false" afterPath="$PROJECT_DIR$/params.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/data.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dSR.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dSR_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dUser.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dUser_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/SubCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/SubCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/UserCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:11]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/UserCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/data.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dSR.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dSR_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dUser.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dUser_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/SubCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/SubCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/UserCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:17:34]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/UserCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/data.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dSR.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dSR_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dUser.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/2dUser_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/SubCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/SubCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/UserCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:30]_[2000USR:112SR]_[UNMOD:30A:200P:100U]/gifs/UserCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/data.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dSR.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dSR_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dUser.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/2dUser_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/SubCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/SubCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/UserCount.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Test_[2022:12:17 18:26:39]_[2000USR:112SR]_[MOD:30A:200P:100U]/gifs/UserCount_slow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/speedup/Cargo.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/speedup/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/speedup/pyproject.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/speedup/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_bias0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_bias1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_bias_timeline" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_sr_end" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_sr_start" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_success_score" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_user_end" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_user_sr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/5h_users_start" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/pcm extremist start" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/presentation_end_sr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/presentation_end_user" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/presentation_success0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/presentation_success1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/start" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/unmoderated_bias" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/unmoderated_sr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/unmoderated_success1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots[old]/unmoderated_success_0" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +55,19 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="12917ee9-a129-41b4-94d9-cb450a5b17ad" />
+        <option name="url" value="https://github.com/ByteBlitz/cssNetworkAnalysis.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="3zca7kn5" />
@@ -97,7 +94,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/maxosterried/PycharmProjects/Reddit&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/maxosterried/PycharmProjects/Reddit/Paper&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -113,6 +110,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Presentation" />
       <recent name="$PROJECT_DIR$/plots" />
     </key>
   </component>
@@ -138,9 +136,6 @@
       <module name="Reddit" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -336,6 +331,7 @@
       <workItem from="1671292887435" duration="275000" />
       <workItem from="1671293166231" duration="1585000" />
       <workItem from="1671295183224" duration="12706000" />
+      <workItem from="1671451282654" duration="19300000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1666257668895</created>
@@ -554,7 +550,42 @@
       <option name="project" value="LOCAL" />
       <updated>1671298826204</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Own commit">
+      <created>1671451592363</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1671451592363</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Merging">
+      <created>1671574262378</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1671574262378</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Merging">
+      <created>1671574310573</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1671574310573</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Final Commit.">
+      <created>1671574745064</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1671574745064</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Final Commit.">
+      <created>1671575513120</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1671575513120</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,9 +605,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Added the official Reddit ranking code and rewrote it to native python" />
-    <MESSAGE value="Added Subredits, simplified code." />
-    <MESSAGE value="Finished the rework. I screwed up the runtime constants though" />
     <MESSAGE value="Added touching grass&#10;Improved Subreddit distribution&#10;Changed the rng and added the possibility to save the seed&#10;Improved the Hot Queue&#10;Added more diagrams&#10;Added more statistics, especially considering User success" />
     <MESSAGE value="Built new project structure. If you want to implement moderation, extend Reddit.py as specified in Some_Extension.py. &#10;&#10;Added new functions and more modularity" />
     <MESSAGE value="Cleanup" />
@@ -599,7 +627,10 @@
     <MESSAGE value="Split the classes into files" />
     <MESSAGE value="- Cleaned up Code&#10;- Introduced params file, which contains all changeable parameters&#10;- Decreased subreddit switching (sleeping Users won't change subreddits)&#10;- Introduced more statistics for Moderation&#10;- Documented most functions&#10;- Changed the hot-stack to a priority queue with amortized, restricted sorting" />
     <MESSAGE value="- Introduced more reasonable Subreddit switching.&#10;- Introduced a slowing effect as Users get closer to ridiculously radical positions. &#10;- Results are now saved in a folder in the results-folder. This also means that you can now run multiple instances at once and take a look at the results later. &#10;- Greatly improved performance (at least it feels like it).&#10;- Moderation's inaccuracy is now an own variable and can be checked from the params.py file.&#10;- Every run now has a unique ID. &#10;- Discontinued some plots.&#10;- Every User has access to the ls_subreddit list. This gets rid of unnecessary arguments and would make the transition to Rust-implemented users easier. &#10;- Subreddits are now much more stable bias-wise. This prevents them from ultimately being drawn to the center due to a higher number of stray centrists compared to stray extremists." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Introduced more reasonable Subreddit switching.&#10;- Introduced a slowing effect as Users get closer to ridiculously radical positions. &#10;- Results are now saved in a folder in the results-folder. This also means that you can now run multiple instances at once and take a look at the results later. &#10;- Greatly improved performance (at least it feels like it).&#10;- Moderation's inaccuracy is now an own variable and can be checked from the params.py file.&#10;- Every run now has a unique ID. &#10;- Discontinued some plots.&#10;- Every User has access to the ls_subreddit list. This gets rid of unnecessary arguments and would make the transition to Rust-implemented users easier. &#10;- Subreddits are now much more stable bias-wise. This prevents them from ultimately being drawn to the center due to a higher number of stray centrists compared to stray extremists." />
+    <MESSAGE value="Own commit" />
+    <MESSAGE value="Merging" />
+    <MESSAGE value="Final Commit." />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Commit." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Reddit$Main.coverage" NAME="Main Coverage Results" MODIFIED="1671095515424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

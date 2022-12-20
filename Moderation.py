@@ -49,6 +49,7 @@ class Moderation:
         self.ls_users[post.creator].banned = 24
         self.hard_action += 1
 
+    # @profile
     def intervene(self):
         """Function that scans new Posts and blacklisted Users for suspicious content and punishes if necessary.
         Can run once every timestep. """

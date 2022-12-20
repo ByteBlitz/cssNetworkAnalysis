@@ -6,12 +6,12 @@ import math
 import funcs as f
 
 # project name
-NAME: str = "Test"
+NAME: str = "2D"
 
 # metadata and deterministic randomization
 timestamp: int = 0
 seed: int = np.random.randint(0, 1024)
-rng = np.random.default_rng(seed=1024)
+rng = np.random.default_rng(seed=seed)
 
 # simulation times
 ROUNDS = 40
@@ -31,17 +31,15 @@ USR_SUBREDDIT_CAP = 20
 
 USR_HOT_BIAS = 0.7
 
-SR_BIAS = np.array([0.5, 0.5])
+SR_BIAS = np.array([0.5 for _ in range(N)])
 
 
 def make_user_bias():
-    elem_one = rng.beta(3.1, 2.7)
-    elem_two = rng.beta(4.9, 5.2)
-    return np.clip(np.array([elem_one, elem_two]), 0, 1)
+    return np.clip(np.array([rng.beta(3.1, 2.7) if i % 2 == 0 else rng.beta(4.9, 5.2) for i in range(N)]), 0, 1)
 
 
 def make_importance():
-    imp = np.array([rng.uniform(0.3, 5.0), rng.uniform(1.0, 6.0)])
+    imp = np.array([rng.uniform(0.3, 5.0) if i % 2 == 0 else rng.uniform(1.0, 6.0) for i in range(N)])
     return imp / linalg.norm(imp) * SQRT_N
 
 
@@ -55,12 +53,18 @@ def make_create_bias():
 
 # moderation
 MODERATION = True
-MOD_BIAS = np.array([0.5, 0.5])
-MOD_ZONES = np.array([0.6, 0.7, 0.8]) * SQRT_N
+MOD_BIAS = np.array([0.5 for _ in range(N)])
+MOD_ZONES = np.array([0.2, 0.3, 0.4]) * SQRT_N / math.sqrt(2)
+# MOD_ZONES = np.array([0.35, 0.45, 0.5])
 
-MOD_SCAN_POSTS = 150
-MOD_SCAN_USERS = min(int(USR_COUNT * 0.05), MOD_SCAN_POSTS)
-MOD_ACCURACY = 100
+MOD_SCAN_POSTS = 200
+# MOD_SCAN_POSTS = 20
+# MOD_SCAN_USERS = min(int(USR_COUNT * 0.05), MOD_SCAN_POSTS)
+MOD_SCAN_USERS = 32
+# MOD_SCAN_USERS = 4
+MOD_ACCURACY = 30
+
+EX_ZONES = np.array([0.25, 0.4, 0.5]) * SQRT_N / math.sqrt(2)
 
 # identification
 ID = "_".join([NAME, datetime.now().strftime("[%Y:%m:%d %H:%M:%S]"),

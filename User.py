@@ -47,7 +47,8 @@ class User:
             subreddit.users += 1
 
     def touch_grass(self):
-        """Spend a day offline and change your opinion in real human contact. """
+        """Spend an hour offline and change your opinion in real human contact.
+        Currently not used for the sake of simplicity. """
         self.bias = np.clip(pms.rng.normal(self.bias, 0.01), 0, 1)
 
     def edge_dist(self):
@@ -70,7 +71,6 @@ class User:
         sr.users += 1
         self.entered += 1
 
-    # @profile
     def leave_sr(self):
         """Leave any of your subreddits. """
         sr = pms.rng.choice(self.subreddits)
@@ -79,7 +79,6 @@ class User:
         sr.users -= 1
         self.left += 1
 
-    # @profile
     def create_post(self):
         """Create Post, hand it to a Subreddit and return it to the caller. """
         self.created_posts += 1

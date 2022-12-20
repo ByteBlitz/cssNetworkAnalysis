@@ -57,6 +57,9 @@ class Network:
                     user.consume_post()
 
                 user.switch_subreddit()
+            else:
+                # user.touch_grass()
+                pass
 
         # Simulate Subreddits. Calculate their bias.
         for subreddit in self.ls_subreddits:
