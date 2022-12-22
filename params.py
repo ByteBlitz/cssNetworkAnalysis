@@ -67,10 +67,8 @@ MOD_ACCURACY = 30
 EX_ZONES = np.array([0.25, 0.4, 0.5]) * SQRT_N / math.sqrt(2)
 
 # identification
-ID = "_".join([NAME, datetime.now().strftime("[%Y:%m:%d %H:%M:%S]"),
-               "[" + str(USR_COUNT) + "USR:" + str(SR_COUNT) + "SR]",
-               "[" + ("MOD:" if MODERATION else "UNMOD:") +
-               str(MOD_ACCURACY) + "A:" + str(MOD_SCAN_POSTS) + "P:" + str(MOD_SCAN_USERS) + "U]"])
+ID = NAME + "_" + datetime.now().strftime("[%Y,%m,%d_%H,%M,%S]") + "_" + "[USR=" + str(USR_COUNT) + ",SR=" + str(SR_COUNT) + "]" + "_" + "[" + ("MOD" if MODERATION else "UNMOD") + ",A=" + str(MOD_ACCURACY) + ",P=" + str(MOD_SCAN_POSTS) + ",U=" + str(MOD_SCAN_USERS) + "]"
+
 print(ID)
 os.makedirs(f"results/{ID}/gifs")
 os.mkdir(f"results/{ID}/plots")
